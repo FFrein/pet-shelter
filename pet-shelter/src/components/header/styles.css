@@ -1,0 +1,40 @@
+.header__wrapper {
+  max-width: 1200px;
+  box-sizing: content-box;
+  margin: auto;
+  position: relative;
+  padding-top: 10px;
+  z-index: 20;
+}
+
+.header {
+  width: 100%;
+  display: inline-flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header__logo-block {
+  display: flex;
+  align-items: center;
+}
+
+.header__navigation {
+  display: flex;
+}
+
+.header__navigation-element {
+  margin-right: 44px;
+}
+
+.header__navigation-element:last-child {
+  margin-right: 0px;
+}
+
+.header__button {
+  cursor: pointer;
+  padding: 12px 32px;
+  border: 1px solid #ffffff;
+  color: #ffffff;
+  border-radius: 190px;
+}/*# sourceMappingURL=styles.css.map */

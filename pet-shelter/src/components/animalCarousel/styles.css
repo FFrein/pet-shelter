@@ -1,0 +1,37 @@
+.animal-carousel {
+  position: relative;
+}
+
+.dog-image {
+  height: 600px;
+}
+
+.image-paginator {
+  position: absolute;
+  background-color: #189cab;
+  width: 434px;
+  height: 56px;
+  border-radius: 230px;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.paginator-btn--left,
+.paginator-btn--right {
+  background-color: #062d3e;
+  width: 123px;
+  height: 46px;
+  border-radius: 50px;
+  cursor: pointer;
+}
+
+.paginator-btn--left {
+  margin-left: 9px;
+}
+
+.paginator-btn--right {
+  margin-right: 9px;
+}/*# sourceMappingURL=styles.css.map */

@@ -1,0 +1,45 @@
+.welcome-block__wrapper {
+  max-width: 1200px;
+  margin: auto;
+  position: relative;
+  z-index: 10;
+}
+.welcome-block {
+  width: 100%;
+  display: flex;
+}
+.welcome-block__row {
+  display: flex;
+  flex-direction: column;
+}
+.welcome-block__row--left {
+  margin-top: 20px;
+  margin-left: 30px;
+}
+.welcome-block__title {
+  max-width: 785px;
+  font-size: 96px;
+  font-family: "Josefin Sans";
+  font-weight: 600;
+  text-transform: uppercase;
+}
+.welcome-block__title--upper {
+  padding-bottom: 52px;
+  color: #189cab;
+  font-size: 26px;
+}
+.welcome-block__title span {
+  font-family: "Josefin Sans";
+  font-weight: 300;
+  color: #ed5c01;
+}
+.welcome-block__button {
+  box-sizing: border-box;
+  max-width: 188px;
+  text-align: center;
+  margin-top: 40px;
+  padding: 16px 36px;
+  border-radius: 247px;
+  background-color: #ed5c01;
+  cursor: pointer;
+}
