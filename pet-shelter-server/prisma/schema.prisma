@@ -1,0 +1,103 @@
+// Указываем провайдера и подключение
+datasource db {
+  provider = "sqlserver"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// Удалена модель UserTypes
+// Описание таблицы Users
+model Users {
+  ID           Int      @id @default(autoincrement())
+  UserName     String   @unique
+  Password     String
+  Email        String   @unique
+  PhoneNumber  String?  @unique
+  Role         String 
+  isBanned     Int
+
+  // Обратная связь с AdoptionRequest
+  AdoptionRequests AdoptionRequest[] // Это обратная связь для AdoptionRequest
+}
+
+// Описание таблицы PetShelter
+model PetShelter {
+  ID          Int      @id @default(autoincrement())
+  Name        String   @unique
+  Address     String   @unique
+  Email       String   @unique
+  Password    String
+  Description String
+  isBanned    Int
+  Animals     Animal[]
+}
+
+// Описание таблицы AnimalType
+model AnimalType {
+  ID          Int      @id @default(autoincrement())
+  TypeName    String
+  Description String
+  Diseases    AnimalTypeDiseases[]
+  Animals     Animal[]
+}
+
+// Описание таблицы Diseases
+model Diseases {
+  ID          Int      @id @default(autoincrement())
+  Name        String   @unique
+  Description String
+  AnimalTypes AnimalTypeDiseases[]
+  Animals     AnimalDiseases[]
+}
+
+// Описание таблицы AnimalTypeDiseases
+model AnimalTypeDiseases {
+  ID           Int        @id @default(autoincrement())
+  AnimalTypeId Int
+  DiseasesId   Int
+
+  // Связи
+  AnimalType   AnimalType @relation(fields: [AnimalTypeId], references: [ID])
+  Diseases     Diseases   @relation(fields: [DiseasesId], references: [ID])
+}
+
+// Описание таблицы Animal
+model Animal {
+  ID           Int       @id @default(autoincrement())
+  PetShelterId Int?
+  AnimalTypeId Int
+  Name         String
+  Description  String
+
+  // Связи
+  PetShelter   PetShelter? @relation(fields: [PetShelterId], references: [ID])
+  AnimalType   AnimalType  @relation(fields: [AnimalTypeId], references: [ID])
+  Diseases     AnimalDiseases[]
+  AdoptionRequests AdoptionRequest[]
+}
+
+// Описание таблицы AnimalDiseases
+model AnimalDiseases {
+  ID         Int     @id @default(autoincrement())
+  AnimalId   Int
+  DiseasesId Int
+
+  // Связи
+  Animal     Animal   @relation(fields: [AnimalId], references: [ID])
+  Diseases   Diseases @relation(fields: [DiseasesId], references: [ID])
+}
+
+// Описание таблицы AdoptionRequest
+model AdoptionRequest {
+  ID          Int    @id @default(autoincrement())
+  AnimalId    Int
+  UserId      Int
+  isProcessed Int
+
+  // Связи
+  Animal      Animal @relation(fields: [AnimalId], references: [ID])
+  User        Users  @relation(fields: [UserId], references: [ID])
+}
