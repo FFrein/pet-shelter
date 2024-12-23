@@ -5,6 +5,7 @@ export function roleMiddleware(allowedRoles) {
     try {
       // Получаем токен из заголовков
       const authHeader = req.headers.authorization;
+
       if (!authHeader) {
         return res
           .status(403)

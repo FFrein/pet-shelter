@@ -39,29 +39,28 @@ router.get("/", PetShelterController.search);
  *   post:
  *     summary: Создать новый приют для животных
  *     description: Добавление нового приюта в базу данных
- *     parameters:
- *       - in: body
- *         name: shelter
- *         description: Данные для создания приюта
- *         required: true
- *         schema:
- *           type: object
- *           properties:
- *             name:
- *               type: string
- *               example: "Приют для кошек"
- *             address:
- *               type: string
- *               example: "Улица Животных, 10"
- *             email:
- *               type: string
- *               example: "shelter@example.com"
- *             password:
- *               type: string
- *               example: "password123"
- *             description:
- *               type: string
- *               example: "Приют для бездомных кошек"
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               name:
+ *                 type: string
+ *                 example: "Приют для кошек"
+ *               address:
+ *                 type: string
+ *                 example: "Улица Животных, 10"
+ *               email:
+ *                 type: string
+ *                 example: "shelter@example.com"
+ *               password:
+ *                 type: string
+ *                 example: "password123"
+ *               description:
+ *                 type: string
+ *                 example: "Приют для бездомных кошек"
  *     responses:
  *       201:
  *         description: Приют успешно создан
@@ -75,29 +74,28 @@ router.post("/", PetShelterController.create);
  *   put:
  *     summary: Обновить данные приюта
  *     description: Обновление информации о приюте
- *     parameters:
- *       - in: body
- *         name: shelter
- *         description: Обновленные данные для приюта
- *         required: true
- *         schema:
- *           type: object
- *           properties:
- *             ID:
- *               type: integer
- *               example: 1
- *             name:
- *               type: string
- *               example: "Приют для собак"
- *             address:
- *               type: string
- *               example: "Улица Животных, 20"
- *             email:
- *               type: string
- *               example: "newemail@shelter.com"
- *             description:
- *               type: string
- *               example: "Приют для бездомных собак"
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               ID:
+ *                 type: integer
+ *                 example: 1
+ *               name:
+ *                 type: string
+ *                 example: "Приют для собак"
+ *               address:
+ *                 type: string
+ *                 example: "Улица Животных, 20"
+ *               email:
+ *                 type: string
+ *                 example: "newemail@shelter.com"
+ *               description:
+ *                 type: string
+ *                 example: "Приют для бездомных собак"
  *     responses:
  *       200:
  *         description: Данные приюта успешно обновлены

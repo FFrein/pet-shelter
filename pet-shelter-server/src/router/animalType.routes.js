@@ -1,5 +1,6 @@
 import express from "express";
 import AnimalTypeController from "../animalsType/animalsType.controller.js";
+import { roleMiddleware } from "../middlewares/role.middleware.js";
 
 const router = express.Router();
 
@@ -83,7 +84,7 @@ router.get("/:id", AnimalTypeController.getById);
  *       400:
  *         description: Ошибка валидации
  */
-router.post("/", AnimalTypeController.create);
+router.post("/", roleMiddleware(["admin"]), AnimalTypeController.create);
 
 /**
  * @swagger
@@ -117,7 +118,7 @@ router.post("/", AnimalTypeController.create);
  *       404:
  *         description: Тип животного не найден
  */
-router.put("/:id", AnimalTypeController.update);
+router.put("/:id", roleMiddleware(["admin"]), AnimalTypeController.update);
 
 /**
  * @swagger
@@ -138,6 +139,6 @@ router.put("/:id", AnimalTypeController.update);
  *       404:
  *         description: Тип животного не найден
  */
-router.delete("/:id", AnimalTypeController.delete);
+router.delete("/:id", roleMiddleware(["admin"]), AnimalTypeController.delete);
 
 export { router };

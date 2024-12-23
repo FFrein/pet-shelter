@@ -4,12 +4,18 @@ import { router as animalTypeRouter } from "./animalType.routes.js";
 import { router as animalRouter } from "./animals.routes.js";
 import { router as petShelterRouter } from "./petShelter.routes.js";
 import { router as userRouter } from "./user.routes.js";
-
-import { roleMiddleware } from "../middlewares/role.middleware.js";
+import { router as DiseasesRouter } from "./disease.routes.js";
+import { router as AnimalTypeDiseasesRouter } from "./animalTypeDiseases.routes.js";
+import { router as AnimalDiseasesRouter } from "./animalDiseases.routes.js";
 
 export const router = new Router();
 
 router.use("/user", userRouter);
-router.use("/animal-type", roleMiddleware(["admin"]), animalTypeRouter);
+router.use("/animal-type", animalTypeRouter);
 router.use("/animals", animalRouter);
 router.use("/petshelters", petShelterRouter);
+router.use("/diseases", DiseasesRouter);
+router.use("/animal-type-diseases", AnimalTypeDiseasesRouter);
+router.use("/animal-diseases", AnimalDiseasesRouter);
+
+//TODO сделать проверки на то что число является числом

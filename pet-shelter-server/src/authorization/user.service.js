@@ -1,7 +1,7 @@
 import { UserModel } from "../models/user.model.js";
 import bcrypt from "bcrypt";
 import { TokenService } from "./token.service.js";
-
+import { ApiError } from "../exceptions/api.error.js";
 export class UserService {
   static async registration(username, email, password, phonenumber) {
     const candidate = await UserModel.getByEmail(email);
@@ -33,11 +33,11 @@ export class UserService {
   static async login(email, password) {
     const user = await UserModel.getByEmail(email);
     if (!user) {
-      //throw ApiError.BadRequest("Пользователь с таким email не найден");
+      throw ApiError.BadRequest("Пользователь с таким email не найден");
     }
     const isPassEquals = await bcrypt.compare(password, user.Password);
     if (!isPassEquals) {
-      //throw ApiError.BadRequest("Неверный пароль");
+      throw ApiError.BadRequest("Неверный пароль");
     }
     const userDto = {
       username: user.UserName,

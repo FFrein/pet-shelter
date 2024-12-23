@@ -42,6 +42,7 @@ export default class AnimalsController {
   // Обновить данные животного
   static async update(req, res, next) {
     try {
+      //TODO брать id из токена
       const { ID, petShelterId, animalTypeId, name, description } = req.body;
 
       // Проверка на обязательные поля

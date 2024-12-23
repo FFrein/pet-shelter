@@ -7,30 +7,29 @@ const router = new Router();
 // Регистрация пользователя
 /**
  * @swagger
- * /registration:
+ * /user/registration:
  *   post:
  *     summary: Регистрация нового пользователя
  *     description: Создание нового пользователя в системе
- *     parameters:
- *       - in: body
- *         name: user
- *         description: Данные для регистрации пользователя
- *         required: true
- *         schema:
- *           type: object
- *           properties:
- *             email:
- *               type: string
- *               example: "user@example.com"
- *             username:
- *               type: string
- *               example: "user123"
- *             password:
- *               type: string
- *               example: "password123"
- *             phonenumber:
- *               type: string
- *               example: "+123456789012"
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 example: "user@example.com"
+ *               username:
+ *                 type: string
+ *                 example: "user123"
+ *               password:
+ *                 type: string
+ *                 example: "password123"
+ *               phonenumber:
+ *                 type: string
+ *                 example: "+123456789012"
  *     responses:
  *       201:
  *         description: Пользователь успешно зарегистрирован
@@ -42,42 +41,49 @@ router.post(
   body("email").isEmail(),
   body("username").isLength({ min: 3, max: 32 }),
   body("password").isLength({ min: 3, max: 32 }),
-  body("phonenumber").isInt().isLength({ min: 16, max: 32 }),
+  body("phonenumber")
+    .isLength({ min: 12, max: 15 })
+    .matches(/^\+\d+$/),
   UserController.registration
 );
+
 // Логин пользователя
 /**
  * @swagger
- * /login:
+ * /user/login:
  *   post:
  *     summary: Логин пользователя
  *     description: Авторизация пользователя в системе
- *     parameters:
- *       - in: body
- *         name: credentials
- *         description: Логин и пароль пользователя
- *         required: true
- *         schema:
- *           type: object
- *           properties:
- *             username:
- *               type: string
- *               example: "user123"
- *             password:
- *               type: string
- *               example: "password123"
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 example: "user@example.com"
+ *               password:
+ *                 type: string
+ *                 example: "password123"
  *     responses:
  *       200:
  *         description: Успешный логин
  *       400:
  *         description: Неверные данные
  */
-router.post("/login", UserController.login);
+router.post(
+  "/login",
+  body("email").isEmail(),
+  body("password").exists(),
+  UserController.login
+);
 
 // Логаут пользователя
 /**
  * @swagger
- * /logout:
+ * /user/logout:
  *   post:
  *     summary: Логаут пользователя
  *     description: Выход пользователя из системы
@@ -90,7 +96,7 @@ router.post("/logout", UserController.logout);
 // Обновление данных пользователя
 /**
  * @swagger
- * /refresh:
+ * /user/refresh:
  *   get:
  *     summary: Обновление данных пользователя
  *     description: Обновить информацию о пользователе

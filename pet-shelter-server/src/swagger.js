@@ -1,4 +1,3 @@
-// swagger.js
 import swaggerJSDoc from "swagger-jsdoc";
 import swaggerUi from "swagger-ui-express";
 
@@ -16,12 +15,24 @@ const swaggerOptions = {
         url: "http://localhost:8001/api", // URL вашего API
       },
     ],
+    components: {
+      securitySchemes: {
+        bearerAuth: {
+          type: "http",
+          scheme: "bearer",
+          bearerFormat: "JWT", // Опционально, для указания формата токена
+        },
+      },
+    },
+    security: [
+      {
+        bearerAuth: [], // Указывает, что все эндпоинты используют Bearer Token
+      },
+    ],
   },
   apis: ["./src/**/*.js"], // Это рекурсивный путь для всех JS файлов в src
-  // Путь к вашим маршрутам с аннотациями (например, ./routes/*.js или ./controllers/*.js)
 };
 
-// Генерация спецификации Swagger
 const swaggerSpec = swaggerJSDoc(swaggerOptions);
 
 // Функция для подключения Swagger UI
