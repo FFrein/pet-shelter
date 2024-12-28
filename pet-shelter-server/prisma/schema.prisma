@@ -96,6 +96,8 @@ model AdoptionRequest {
   AnimalId    Int
   UserId      Int
   isProcessed Int
+  description String
+  answer      String?
 
   // Связи
   Animal      Animal @relation(fields: [AnimalId], references: [ID])

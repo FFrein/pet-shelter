@@ -65,4 +65,13 @@ export default class AnimalsController {
         .json({ error: "Ошибка при обновлении животного", message: e.message });
     }
   }
+
+  // Удаление животного
+  static async delete(id) {
+    try {
+      return await AnimalModel.delete(id);
+    } catch (e) {
+      throw new Error("Ошибка при удалении животного: " + e.message);
+    }
+  }
 }

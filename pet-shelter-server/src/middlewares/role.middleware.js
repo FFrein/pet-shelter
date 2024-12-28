@@ -5,13 +5,11 @@ export function roleMiddleware(allowedRoles) {
     try {
       // Получаем токен из заголовков
       const authHeader = req.headers.authorization;
-
       if (!authHeader) {
         return res
           .status(403)
           .json({ message: "Нет доступа. Отсутствует заголовок." });
       }
-
       // Проверяем формат токена: "Bearer <token>"
       const token = authHeader.split(" ")[1];
       if (!token) {
@@ -19,7 +17,6 @@ export function roleMiddleware(allowedRoles) {
           .status(403)
           .json({ message: "Нет доступа. Неверный формат токена." });
       }
-
       // Валидация токена
       const userData = TokenService.validateAccessToken(token);
       if (!userData) {

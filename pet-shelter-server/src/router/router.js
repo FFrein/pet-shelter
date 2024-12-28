@@ -7,6 +7,9 @@ import { router as userRouter } from "./user.routes.js";
 import { router as DiseasesRouter } from "./disease.routes.js";
 import { router as AnimalTypeDiseasesRouter } from "./animalTypeDiseases.routes.js";
 import { router as AnimalDiseasesRouter } from "./animalDiseases.routes.js";
+import { router as AdoptionRequestRouter } from "./adoptionalRequest.routes.js";
+
+import { authMiddleware } from "../middlewares/auth.middleware.js";
 
 export const router = new Router();
 
@@ -17,5 +20,6 @@ router.use("/petshelters", petShelterRouter);
 router.use("/diseases", DiseasesRouter);
 router.use("/animal-type-diseases", AnimalTypeDiseasesRouter);
 router.use("/animal-diseases", AnimalDiseasesRouter);
+router.use("/adoption-requests", authMiddleware(), AdoptionRequestRouter);
 
 //TODO сделать проверки на то что число является числом

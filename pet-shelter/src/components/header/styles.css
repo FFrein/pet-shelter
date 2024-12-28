@@ -1,12 +1,14 @@
 .header__wrapper {
-  max-width: 1200px;
   box-sizing: content-box;
-  margin: auto;
   position: relative;
   padding-top: 10px;
   z-index: 20;
+  background: linear-gradient(to right, #ebe3cc 75%, #062d3e 25%);
 }
-
+.header__content {
+  max-width: 1200px;
+  margin: auto;
+}
 .header {
   width: 100%;
   display: inline-flex;
@@ -37,4 +39,4 @@
   border: 1px solid #ffffff;
   color: #ffffff;
   border-radius: 190px;
-}/*# sourceMappingURL=styles.css.map */
+}

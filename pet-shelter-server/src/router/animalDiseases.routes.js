@@ -29,7 +29,7 @@ const router = express.Router();
  */
 router.post(
   "/",
-  roleMiddleware(["shelterMnager", "admin"]),
+  roleMiddleware(["shelterManager", "admin"]),
   AnimalDiseasesController.create
 );
 
@@ -94,7 +94,7 @@ router.get("/:id", AnimalDiseasesController.getById);
  */
 router.put(
   "/:id",
-  roleMiddleware(["shelterMnager", "admin"]),
+  roleMiddleware(["shelterManager", "admin"]),
   AnimalDiseasesController.update
 );
 
@@ -116,7 +116,7 @@ router.put(
  */
 router.delete(
   "/:id",
-  roleMiddleware(["shelterMnager", "admin"]),
+  roleMiddleware(["shelterManager", "admin"]),
   AnimalDiseasesController.delete
 );
 

@@ -1,5 +1,5 @@
 import { AnimalCarousel } from "../animalCarousel/animalCarousel";
-import "./styles.scss";
+import "./styles.css";
 
 export const WelcomeBlock = () => {
   return (
@@ -20,7 +20,9 @@ export const WelcomeBlock = () => {
           </a>
         </div>
         <div className="welcome-block__row">
-          <AnimalCarousel />
+          <AnimalCarousel
+            images={["./images/BigDogWithHoodie.svg", "./images/dog2.png"]}
+          />
         </div>
       </article>
     </div>

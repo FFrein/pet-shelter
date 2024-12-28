@@ -6,6 +6,9 @@
   user-select: none;
   color: #062d3e;
 }
+.dflex {
+  display: flex;
+}
 
 a,
 a:visited,
@@ -25,4 +28,4 @@ a:hover {
 
 body {
   background-color: #ebe3cc;
-} /*# sourceMappingURL=index.css.map */
+}

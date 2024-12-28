@@ -1,6 +1,6 @@
 import PetShelterController from "../petShelters/petShelter.controller.js";
 import Router from "express";
-import { roleMiddleware } from "../middlewares/role.middleware.js";
+import { authMiddleware } from "../middlewares/auth.middleware.js";
 
 const router = new Router();
 
@@ -67,6 +67,55 @@ router.get("/", PetShelterController.search);
  */
 router.post("/", PetShelterController.create);
 
+// Авторизация приюта
+/**
+ * @swagger
+ * /petshelters/login:
+ *   post:
+ *     summary: Авторизация приюта
+ *     description: Авторизация существующего приюта
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 example: "shelter@example.com"
+ *               password:
+ *                 type: string
+ *                 example: "password123"
+ *     responses:
+ *       200:
+ *         description: Успешная авторизация
+ */
+router.post("/login", PetShelterController.login);
+
+// Логаут приюта
+/**
+ * @swagger
+ * /petshelters/logout:
+ *   post:
+ *     summary: Выход из аккаунта приюта
+ *     description: Завершает текущую сессию приюта, удаляя refreshToken из куки.
+ *     responses:
+ *       200:
+ *         description: Успешный выход
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Успешный выход"
+ *       401:
+ *         description: Пользователь не авторизован
+ */
+router.post("/logout", PetShelterController.logout);
+
 // Обновить данные приюта
 /**
  * @swagger
@@ -100,10 +149,6 @@ router.post("/", PetShelterController.create);
  *       200:
  *         description: Данные приюта успешно обновлены
  */
-router.put(
-  "/",
-  roleMiddleware(["shelterMnager", "admin"]),
-  PetShelterController.update
-);
+router.put("/", authMiddleware, PetShelterController.update);
 
 export { router };

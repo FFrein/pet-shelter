@@ -13,13 +13,11 @@ export default class PetShelterController {
     }
   }
 
-  // Создание нового приюта
+  // Создать новый приют
   static async create(req, res, next) {
     try {
-      const { name, address, email, password, description, isBanned } =
-        req.body;
+      const { name, address, email, password, description } = req.body;
 
-      // Проверка на обязательные поля
       if (!name || !address || !email || !password || !description) {
         return res
           .status(400)
@@ -42,17 +40,55 @@ export default class PetShelterController {
     }
   }
 
+  // Авторизация приюта
+  static async login(req, res, next) {
+    try {
+      const { email, password } = req.body;
+
+      if (!email || !password) {
+        return res
+          .status(400)
+          .json({ error: "Email и пароль обязательны для входа" });
+      }
+
+      const petShelterData = await PetShelterService.authenticate(
+        email,
+        password
+      );
+      res.cookie("refreshToken", petShelterData.refreshToken, {
+        maxAge: 30 * 24 * 60 * 60 * 1000, //TODO взять время жизни из env
+        httpOnly: true,
+      });
+      return res.status(200).json(petShelterData);
+    } catch (e) {
+      return res
+        .status(401)
+        .json({ error: "Ошибка при авторизации", message: e.message });
+    }
+  }
+
+  // Логаут
+  static async logout(req, res, next) {
+    try {
+      const { refreshToken } = req.cookies;
+      //await PetShelterService.logout(refreshToken);
+      res.clearCookie("refreshToken");
+      return res.status(200).json({ message: "Успешный выход" });
+    } catch (e) {
+      next(e);
+    }
+  }
+
   // Обновить информацию о приюте
   static async update(req, res, next) {
     try {
       const { ID, name, address, email, password, description, isBanned } =
         req.body;
 
-      // TODO изменить
       if (!ID) {
         return res
           .status(400)
-          .json({ error: "Все поля обязательны для обновления приюта" });
+          .json({ error: "ID обязателен для обновления приюта" });
       }
 
       const updatedPetShelter = await PetShelterService.update(ID, {

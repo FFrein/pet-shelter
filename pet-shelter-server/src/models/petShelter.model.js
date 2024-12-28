@@ -25,6 +25,10 @@ export default class PetShelterModel {
     return await prisma.petShelter.findUnique({ where: { ID: id } });
   }
 
+  static async getByEmail(email) {
+    return await prisma.petShelter.findUnique({ where: { Email: email } });
+  }
+
   // Обновить информацию о приюте
   static async update(id, data) {
     return await prisma.petShelter.update({

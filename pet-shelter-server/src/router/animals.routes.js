@@ -67,7 +67,7 @@ router.get("/", AnimalsController.search);
  *       400:
  *         description: Ошибка при создании животного
  */
-router.post("/", roleMiddleware(["shelterMnager"]), AnimalsController.create);
+router.post("/", roleMiddleware(["shelterManager"]), AnimalsController.create);
 
 // Обновить данные животного
 /**
@@ -105,6 +105,33 @@ router.post("/", roleMiddleware(["shelterMnager"]), AnimalsController.create);
  *       400:
  *         description: Ошибка при обновлении данных животного
  */
-router.put("/", roleMiddleware(["shelterMnager"]), AnimalsController.update);
+router.put("/", roleMiddleware(["shelterManager"]), AnimalsController.update);
+
+/**
+ * @swagger
+ * /animals/{id}:
+ *   delete:
+ *     summary: Удалить животное
+ *     description: Удаляет животное из базы данных по ID
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: ID животного для удаления
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: Животное успешно удалено
+ *       400:
+ *         description: Ошибка валидации
+ *       404:
+ *         description: Животное не найдено
+ */
+router.delete(
+  "/:id",
+  roleMiddleware(["shelterManager"]),
+  AnimalsController.delete
+);
 
 export { router };

@@ -1,10 +1,12 @@
-export default interface IUserContext{
-    name: string,
-    email: string,
-    address: string,
-    phoneNumber:string,
+export default interface IUserContext {
+  name: string;
+  email: string;
+  address: string;
+  phoneNumber: string;
+  role: string;
+  id: string;
 
-    isBanned: string,
+  isBanned: string;
 
-    jwt:object | null,
+  jwt: object | null;
 }

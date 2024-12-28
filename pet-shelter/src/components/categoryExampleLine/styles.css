@@ -1,9 +1,17 @@
 .CategoryExampleLine__wrapper {
   box-sizing: content-box;
   background-color: #ed5c01;
-  height: 306px;
   padding: 34px 0;
   position: relative;
   z-index: 10;
   margin-top: 50px;
-}/*# sourceMappingURL=styles.css.map */
+}
+
+.CategoryExampleLine {
+  max-width: 1200px;
+  margin: auto;
+  justify-content: space-around;
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+}
