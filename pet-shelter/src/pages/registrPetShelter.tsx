@@ -9,6 +9,8 @@ export const RegisterPetShelter = () => {
     name: "",
     address: "",
     description: "",
+    city: "",
+    country: "",
   });
   const { store } = useContext(Context);
   const navigate = useNavigate();
@@ -22,7 +24,9 @@ export const RegisterPetShelter = () => {
         form.password,
         form.name,
         form.address,
-        form.description
+        form.description,
+        form.city,
+        form.country
       );
 
       if (store.isAuth) {
@@ -69,6 +73,20 @@ export const RegisterPetShelter = () => {
             value={form.address}
             onChange={(e) => {
               setForm({ ...form, address: e.target.value });
+            }}
+          />
+          <input
+            placeholder="city"
+            value={form.city}
+            onChange={(e) => {
+              setForm({ ...form, city: e.target.value });
+            }}
+          />
+          <input
+            placeholder="country"
+            value={form.country}
+            onChange={(e) => {
+              setForm({ ...form, country: e.target.value });
             }}
           />
           <input

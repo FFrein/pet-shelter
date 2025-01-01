@@ -15,6 +15,8 @@ import { Context } from "./main";
 import { observer } from "mobx-react-lite";
 import { LoginPetShelter } from "./pages/loginPetShelter";
 import { RegisterPetShelter } from "./pages/registrPetShelter";
+import { Animal } from "./pages/animal";
+import { AnimalType } from "./pages/animalType";
 
 function App() {
   const { store } = useContext(Context);
@@ -48,7 +50,8 @@ function App() {
               <Route path={"/profile"} element={<Profile />}></Route>
             </>
           )}
-
+          <Route path={"/animal/:id"} element={<Animal />}></Route>
+          <Route path={"/animalType/:id"} element={<AnimalType />}></Route>
           <Route path={"/about"} element={<About />}></Route>
           <Route path={"/animal-store"} element={<AnimalStore />}></Route>
           <Route path={"/animal-types"} element={<AnimalTypes />}></Route>

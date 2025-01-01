@@ -32,7 +32,7 @@ export const LoginPetShelter = () => {
           className="flex flex-col gap-2 max-w-sm mx-auto p-4"
         >
           <input
-            placeholder="login"
+            placeholder="email"
             value={form.email}
             onChange={(e) => {
               setForm({ ...form, email: e.target.value });

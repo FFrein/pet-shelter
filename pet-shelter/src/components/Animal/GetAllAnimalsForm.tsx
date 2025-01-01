@@ -1,13 +1,24 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AnimalsService } from "../../api/services/all.services";
+import { Link } from "react-router-dom";
+import Paginator from "../Paginator";
 
-export const GetAllAnimalsForm = () => {
+type GetAllAnimalsFormType = {
+  SearchCategories: Array<any>;
+};
+
+export const GetAllAnimalsForm: React.FC<GetAllAnimalsFormType> = ({
+  SearchCategories,
+}) => {
   const [animals, setAnimals] = useState<any[]>([]);
   const [error, setError] = useState<string | null>(null);
+  const [currentPage, setCurrentPage] = useState(1);
 
-  const handleGetAll = async () => {
+  const handleGetAll = async (page?: number) => {
     try {
-      const response = await AnimalsService.getAll();
+      const response = await AnimalsService.search(page ? page : currentPage, {
+        criterias: SearchCategories,
+      });
       setAnimals(response.data);
       setError(null);
     } catch (err: any) {
@@ -16,26 +27,44 @@ export const GetAllAnimalsForm = () => {
     }
   };
 
+  const handleChangePage = (page: number) => {
+    setCurrentPage(page);
+    handleGetAll(page);
+  };
+
+  useEffect(() => {
+    handleGetAll();
+  }, []);
+
   return (
-    <div className="p-4 border border-[#062d3e] rounded">
-      <button
-        onClick={handleGetAll}
-        className="bg-[#ed5c01] hover:bg-[#d65400] text-white font-bold py-2 px-4 rounded"
-      >
-        Получить всех животных
-      </button>
+    <div className="flex-1 flex flex-col justify-between">
+      <div>
+        <button
+          onClick={handleGetAll}
+          className="bg-[#ed5c01] hover:bg-[#d65400] text-white font-bold py-2 px-4 rounded"
+        >
+          Поиск
+        </button>
+      </div>
       {error && <div className="text-red-500 mt-2">{error}</div>}
-      <ul className="mt-4 space-y-2">
+      <ul className="mt-4 space-y-2 flex flex-col gap-2">
         {animals.map((animal, index) => (
-          <li key={index} className="p-2 bg-gray-100 rounded">
-            <strong>ID:</strong> {animal.ID}, <strong>Имя:</strong>{" "}
-            {animal.Name},<strong>Описание:</strong> {animal.Description},
-            <strong>Тип:</strong> {animal.AnimalType?.TypeName},
-            <strong>Приют:</strong> {animal.PetShelter?.Name},
-            <strong>Адрес:</strong> {animal.PetShelter?.Address}
-          </li>
+          <Link to={`/animal/${animal.ID}`}>
+            <li key={index} className="p-2 bg-gray-100 rounded">
+              <strong>ID:</strong> {animal.ID}, <strong>Имя:</strong>{" "}
+              {animal.Name},<strong>Описание:</strong> {animal.Description},
+              <strong>Тип:</strong> {animal.AnimalType?.TypeName},
+              <strong>Приют:</strong> {animal.PetShelter?.Name},
+              <strong>Адрес:</strong> {animal.PetShelter?.Address}
+            </li>
+          </Link>
         ))}
       </ul>
+      <Paginator
+        currentPage={currentPage}
+        onPageChange={handleChangePage}
+        dataLength={animals.length}
+      />
     </div>
   );
 };

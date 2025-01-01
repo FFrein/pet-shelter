@@ -1,44 +1,20 @@
 import { AxiosResponse } from "axios";
 import $api from "../http/http";
 
-export class AnimalDiseasesService {
-  static async create(
-    animalId: number,
-    diseasesId: number
-  ): Promise<AxiosResponse<any>> {
-    return $api.post<any>("animal-diseases", { animalId, diseasesId });
-  }
-
-  static async getAll(): Promise<AxiosResponse<any>> {
-    return $api.get<any>("animal-diseases");
-  }
-
-  static async getById(id: number): Promise<AxiosResponse<any>> {
-    return $api.get<any>(`animal-diseases/${id}`);
-  }
-
-  static async update(
-    id: number,
-    animalId: number,
-    diseasesId: number
-  ): Promise<AxiosResponse<any>> {
-    return $api.put<any>(`animal-diseases/${id}`, { animalId, diseasesId });
-  }
-
-  static async delete(id: number): Promise<AxiosResponse<any>> {
-    return $api.delete<any>(`animal-diseases/${id}`);
-  }
-}
-
 export class AnimalsService {
   static async getAll() {
     return $api.get("/animals");
+  }
+  static async getById(id: number | string) {
+    return $api.get(`/animals/${id}`);
   }
   static async create(animal: {
     animalTypeId: number;
     petShelterId: number;
     name: string;
     description: string;
+    age: number;
+    gender: string;
   }) {
     return $api.post("/animals", animal);
   }
@@ -48,11 +24,46 @@ export class AnimalsService {
     petShelterId: number;
     name: string;
     description: string;
+    age: number;
+    gender: string;
   }) {
     return $api.put("/animals", animal);
   }
   static async delete(id: number) {
     return $api.delete(`/animals/${id}`);
+  }
+
+  static async search(
+    page?: number,
+    filter?: {
+      country?: string;
+      city?: string;
+      animalType?: number;
+      criterias?: number[];
+    }
+  ): Promise<AxiosResponse<any>> {
+    const params = new URLSearchParams();
+
+    // Добавляем номер страницы
+    if (page) params.append("page", page.toString());
+
+    // Добавляем категории как запятую
+    if (filter?.criterias?.length) {
+      params.append("criterias", filter.criterias.join(","));
+    }
+    // Добавляем фильтры, если они присутствуют
+    if (filter?.animalType) {
+      params.append("animalType", filter.animalType.toString());
+    }
+    if (filter?.city) {
+      params.append("city", filter.city);
+    }
+    if (filter?.country) {
+      params.append("country", filter.country);
+    }
+
+    // Выполняем запрос с параметрами
+    return $api.get<any>(`animals?${params.toString()}`);
   }
 }
 
@@ -95,6 +106,35 @@ export class AnimalTypeDiseasesService {
   }
   static async delete(id: number) {
     return $api.delete(`/animal-type-diseases/${id}`);
+  }
+}
+
+export class AnimalDiseasesService {
+  static async create(
+    animalId: number,
+    diseasesId: number
+  ): Promise<AxiosResponse<any>> {
+    return $api.post<any>("animal-diseases", { animalId, diseasesId });
+  }
+
+  static async getAll(): Promise<AxiosResponse<any>> {
+    return $api.get<any>("animal-diseases");
+  }
+
+  static async getById(id: number): Promise<AxiosResponse<any>> {
+    return $api.get<any>(`animal-diseases/${id}`);
+  }
+
+  static async update(
+    id: number,
+    animalId: number,
+    diseasesId: number
+  ): Promise<AxiosResponse<any>> {
+    return $api.put<any>(`animal-diseases/${id}`, { animalId, diseasesId });
+  }
+
+  static async delete(id: number): Promise<AxiosResponse<any>> {
+    return $api.delete<any>(`animal-diseases/${id}`);
   }
 }
 

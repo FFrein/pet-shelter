@@ -9,13 +9,14 @@ import { GetAllAdoptionRequestsForm } from "../components/AdoptionRequest/GetAll
 import { UpdateAdoptionRequestForm } from "../components/AdoptionRequest/UpdateAdoptionRequestForm";
 import { CreateAdoptionRequestForm } from "../components/AdoptionRequest/CreateAdoptionRequestForm";
 import { observer } from "mobx-react-lite";
+import { DeleteAnimalDiseaseForm } from "../components/AnimalDiseases/DeleteAnimalDiseaseForm";
 
 export const Profile = observer(() => {
   const { store } = useContext(Context);
 
   if (store?.user?.role == "petShelter") {
     return (
-      <div>
+      <div className="mx-auto w-[1200px] mt-2">
         <h1>Pet Shelter</h1>
         <p>{store.user.email}</p>
         <p>{store.user.role}</p>
@@ -24,7 +25,7 @@ export const Profile = observer(() => {
     );
   } else {
     return (
-      <div>
+      <div className="mx-auto w-[1200px] mt-2">
         <div>
           <h1>Profile</h1>
           <p>{store.user.email}</p>
@@ -34,22 +35,25 @@ export const Profile = observer(() => {
         </div>
         <div>
           <div className="m-2 p-2 flex flex-col gap-2 border border-[#062d3e]">
-            <h2>Animal Diseases</h2>
-            <GetAllAnimalDiseasesForm />
-            <CreateAnimalDiseaseForm />
-          </div>
-
-          <div className="m-2 p-2 flex flex-col gap-2 border border-[#062d3e]">
-            <GetAllAdoptionRequestsForm />
-
             {store.user.role == "shelterManager" ? (
-              <div>
-                <GetAdoptionRequestByIdForm />
-                <UpdateAdoptionRequestForm />
-              </div>
+              <>
+                <div className="m-2 p-2 flex flex-col gap-2 border border-[#062d3e]">
+                  <h2>Animal Diseases</h2>
+                  <GetAllAnimalDiseasesForm />
+                  <CreateAnimalDiseaseForm />
+                  <DeleteAnimalDiseaseForm />
+                </div>
+
+                <div>
+                  <GetAdoptionRequestByIdForm />
+                </div>
+              </>
             ) : (
               ""
             )}
+
+            <GetAllAdoptionRequestsForm />
+
             {store.user.role == "user" ? (
               <div>
                 <CreateAdoptionRequestForm />

@@ -12,11 +12,13 @@ export default class PetShelterAuthService {
   }
 
   static async registration(
-    name: string,
-    address: string,
     email: string,
     password: string,
-    description: string
+    name: string,
+    address: string,
+    description: string,
+    city: string,
+    country: string
   ): Promise<any> {
     return $api
       .post<any>("petshelters/", {
@@ -25,6 +27,8 @@ export default class PetShelterAuthService {
         name,
         address,
         description,
+        city,
+        country,
       })
       .then((response) => response)
       .catch((response) => response);

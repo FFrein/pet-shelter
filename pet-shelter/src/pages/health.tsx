@@ -21,7 +21,7 @@ export const Health = () => {
         <GetAllDiseasesForm />
       </div>
 
-      {store?.user?.role == "shelterManager" ? (
+      {store?.user?.role == "admin" ? (
         <div>
           <GetDiseaseByIdForm />
           <CreateDiseaseForm />
@@ -31,7 +31,7 @@ export const Health = () => {
         ""
       )}
 
-      {store?.user?.role == "shelterManager" ? (
+      {store?.user?.role == "admin" ? (
         <>
           <div className="m-2 p-2 flex flex-col gap-2 border border-[#062d3e]">
             <h2>Animal Type Diseases</h2>

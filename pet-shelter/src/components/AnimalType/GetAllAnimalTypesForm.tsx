@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { AnimalTypesService } from "../../api/services/all.services";
+import { Link } from "react-router-dom";
 
 export const GetAllAnimalTypesForm = () => {
   const [animalTypes, setAnimalTypes] = useState<any[]>([]);
@@ -27,10 +28,12 @@ export const GetAllAnimalTypesForm = () => {
       {error && <div className="text-red-500 mt-2">{error}</div>}
       <ul className="mt-4">
         {animalTypes.map((type, index) => (
-          <li key={index}>
-            <strong>ID:</strong> {type.ID}, <strong>TypeName:</strong>{" "}
-            {type.TypeName}, <strong>Description:</strong> {type.Description}
-          </li>
+          <Link to={`/animalType/${type.ID}`}>
+            <li key={index}>
+              <strong>ID:</strong> {type.ID}, <strong>TypeName:</strong>{" "}
+              {type.TypeName}, <strong>Description:</strong> {type.Description}
+            </li>
+          </Link>
         ))}
       </ul>
     </div>

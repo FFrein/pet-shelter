@@ -11,6 +11,8 @@ export const CreateAnimalForm = observer(() => {
     petShelterId: parseInt(store.user.id),
     name: "",
     description: "",
+    age: "",
+    gender: "",
   });
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -49,6 +51,16 @@ export const CreateAnimalForm = observer(() => {
         type="text"
         placeholder="Name"
         onChange={(e) => setAnimal({ ...animal, name: e.target.value })}
+      />
+      <input
+        type="number"
+        placeholder="age"
+        onChange={(e) => setAnimal({ ...animal, age: e.target.value })}
+      />
+      <input
+        type="text"
+        placeholder="gender"
+        onChange={(e) => setAnimal({ ...animal, gender: e.target.value })}
       />
       <textarea
         placeholder="Description"

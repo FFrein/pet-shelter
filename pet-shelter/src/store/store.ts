@@ -124,19 +124,23 @@ export default class Store {
   }
 
   async registrationPS(
-    name: string,
-    address: string,
     email: string,
     password: string,
-    description: string
+    name: string,
+    address: string,
+    description: string,
+    city: string,
+    country: string
   ) {
     try {
       const resp = await PetShelterAuthService.registration(
-        name,
         email,
         password,
+        name,
         address,
-        description
+        description,
+        city,
+        country
       );
       if (resp.status !== 200 && resp.status !== 201) {
         console.log(resp);

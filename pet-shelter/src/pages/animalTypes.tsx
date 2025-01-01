@@ -15,7 +15,7 @@ export const AnimalTypes = () => {
         <h2>Animal Type</h2>
         <GetAllAnimalTypesForm />
 
-        {store?.user?.role == "shelterManager" ? (
+        {store?.user?.role == "admin" ? (
           <div>
             <GetAnimalTypeByIdForm />
             <CreateAnimalTypeForm />
