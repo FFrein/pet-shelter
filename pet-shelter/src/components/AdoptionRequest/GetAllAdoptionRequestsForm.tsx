@@ -6,7 +6,7 @@ export const GetAllAdoptionRequestsForm = () => {
 
   const handleFetch = async () => {
     try {
-      const response = await AdoptionRequestService.getAll();
+      const response = await AdoptionRequestService.getAll("all");
       setRequests(response.data);
     } catch (error) {
       console.error("Ошибка при получении заявок", error);

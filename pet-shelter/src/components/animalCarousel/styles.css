@@ -35,3 +35,7 @@
 .paginator-btn--right {
   margin-right: 9px;
 }
+
+.carousel-image {
+  object-fit: contain;
+}

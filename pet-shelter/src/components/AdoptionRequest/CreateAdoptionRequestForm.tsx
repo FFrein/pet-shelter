@@ -43,16 +43,6 @@ export const CreateAdoptionRequestForm: React.FC<CreateAdoptionRequestFormType> 
           </label>
         )}
 
-        {/*
-        <label>
-        User ID:
-        <input
-          type="number"
-          value={userId}
-          onChange={(e) => setUserId(Number(e.target.value))}
-        />
-      </label>
-      */}
         <label>
           Description:
           <input

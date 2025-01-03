@@ -10,7 +10,7 @@ const Header = () => {
     <header className="header__wrapper">
       <div className="header__content">
         <article className="header">
-          <a href="#/">
+          <a href="/">
             <div className="header__logo-block">
               <img
                 className="header__logo"
@@ -22,16 +22,16 @@ const Header = () => {
           </a>
 
           <nav className="header__navigation">
-            <a className="header__navigation-element" href="#/about">
+            <a className="header__navigation-element" href="/about">
               About
             </a>
-            <a className="header__navigation-element" href="#/animal-store">
+            <a className="header__navigation-element" href="/animal-store">
               Store
             </a>
-            <a className="header__navigation-element" href="#/health">
+            <a className="header__navigation-element" href="/health">
               Health
             </a>
-            <a className="header__navigation-element" href="#/animal-types">
+            <a className="header__navigation-element" href="/animal-types">
               Bestiary
             </a>
           </nav>
@@ -44,7 +44,7 @@ const Header = () => {
             </Link>
           ) : (
             <div className="header__buttons">
-              <a href="#/login">
+              <a href="/login">
                 <p className="header__button">Sign In</p>
               </a>
             </div>

@@ -11,7 +11,7 @@ export const CreateAnimalForm = observer(() => {
     petShelterId: parseInt(store.user.id),
     name: "",
     description: "",
-    age: "",
+    age: 0,
     gender: "",
   });
 
@@ -55,7 +55,9 @@ export const CreateAnimalForm = observer(() => {
       <input
         type="number"
         placeholder="age"
-        onChange={(e) => setAnimal({ ...animal, age: e.target.value })}
+        onChange={(e) =>
+          setAnimal({ ...animal, age: parseInt(e.target.value) })
+        }
       />
       <input
         type="text"

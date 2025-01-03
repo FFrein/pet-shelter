@@ -1,17 +1,15 @@
-import { useCallback, useContext, useState, useEffect } from "react";
-import { Context } from "../main";
+import { useCallback, useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { AnimalsService } from "../api/services/all.services";
+import { AnimalTypesService } from "../api/services/all.services";
 
 export const AnimalType = () => {
-  const { store } = useContext(Context);
   const { id } = useParams<{ id: string }>();
   const [animal, setAnimal] = useState({});
 
   const fetchAnimal = useCallback(async () => {
     if (id) {
       try {
-        const { data } = await AnimalsService.getById(Number(id));
+        const { data } = await AnimalTypesService.getById(Number(id));
         setAnimal(data);
       } catch (error) {
         console.error("Ошибка при загрузке животного:", error);

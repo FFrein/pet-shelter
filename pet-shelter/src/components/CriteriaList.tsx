@@ -31,7 +31,7 @@ const CriteriaList: React.FC<CriteriaListProps> = ({ setSearchCategories }) => {
 
   return (
     <div className="p-4 border border-[#062d3e] rounded">
-      <ul className="flex flex-col h-[566px] overflow-y-auto overflow-x-hidden">
+      <ul className="flex flex-col h-[376px] overflow-y-auto overflow-x-hidden">
         {categories
           ? categories.map((e: any) => {
               return (

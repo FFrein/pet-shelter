@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { AnimalCarousel } from "../animalCarousel/animalCarousel";
 import "./styles.css";
 
@@ -15,13 +16,17 @@ export const WelcomeBlock = () => {
           <h1 className="welcome-block__title">
             A pet-first <span>approach to</span> wellness
           </h1>
-          <a className="welcome-block__button">
+          <Link to={"/about"} className="welcome-block__button">
             <p>Learn More</p>
-          </a>
+          </Link>
         </div>
         <div className="welcome-block__row">
           <AnimalCarousel
-            images={["./images/BigDogWithHoodie.svg", "./images/dog2.png"]}
+            images={[
+              "./images/BigDogWithHoodie.svg",
+              "./images/papuga2.png",
+              "./images/cat1.png",
+            ]}
           />
         </div>
       </article>
