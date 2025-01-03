@@ -9,18 +9,23 @@ export default class AnimalModel {
         AnimalTypeId: animal.animalTypeId,
         Name: animal.name,
         Description: animal.description,
+        Age: animal.age,
+        Gender: animal.gender,
       },
     });
   }
 
   // Получить все животные
-  static async getAll() {
+  static async getAll(filters, pagination) {
     try {
       return await prisma.animal.findMany({
+        where: filters,
         include: {
           PetShelter: true, // Включаем информацию о приюте, если нужно
           AnimalType: true, // Включаем тип животного
+          Criteria: true, // Включаем критерии
         },
+        ...pagination,
       });
     } catch (e) {
       throw new Error(e.message);
@@ -34,6 +39,11 @@ export default class AnimalModel {
       include: {
         PetShelter: true,
         AnimalType: true,
+        Diseases: {
+          include: {
+            Diseases: true,
+          },
+        },
       },
     });
   }

@@ -1,6 +1,7 @@
 import PetShelterController from "../petShelters/petShelter.controller.js";
 import Router from "express";
 import { authMiddleware } from "../middlewares/auth.middleware.js";
+import { roleMiddleware } from "../middlewares/role.middleware.js";
 
 const router = new Router();
 
@@ -61,6 +62,12 @@ router.get("/", PetShelterController.search);
  *               description:
  *                 type: string
  *                 example: "Приют для бездомных кошек"
+ *               city:
+ *                 type: string
+ *                 example: "Минск"
+ *               contry:
+ *                 type: string
+ *                 example: "Беларусь"
  *     responses:
  *       201:
  *         description: Приют успешно создан
@@ -116,6 +123,9 @@ router.post("/login", PetShelterController.login);
  */
 router.post("/logout", PetShelterController.logout);
 
+//Бан приюта
+router.put("/ban", roleMiddleware(["admin"]), PetShelterController.ban);
+
 // Обновить данные приюта
 /**
  * @swagger
@@ -145,6 +155,12 @@ router.post("/logout", PetShelterController.logout);
  *               description:
  *                 type: string
  *                 example: "Приют для бездомных собак"
+ *               city:
+ *                 type: string
+ *                 example: "Минск"
+ *               contry:
+ *                 type: string
+ *                 example: "Беларусь"
  *     responses:
  *       200:
  *         description: Данные приюта успешно обновлены

@@ -78,7 +78,7 @@ export const About = () => {
           друзей!
         </p>
         <a
-          href="#/animal-store"
+          href="/animal-store"
           className="mt-4 inline-block bg-blue-600 text-white px-6 py-3 rounded-md hover:bg-blue-700 transition"
         >
           Усыновить Питомца

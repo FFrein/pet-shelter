@@ -37,4 +37,11 @@ export default class PetShelterAuthService {
   static async logout(): Promise<void> {
     $api.post<any>("petshelters/logout");
   }
+
+  static async ban(id: number, ban: number): Promise<any> {
+    return $api
+      .put<any>("petshelters/ban", { id, ban })
+      .then((response) => response)
+      .catch((response) => response);
+  }
 }

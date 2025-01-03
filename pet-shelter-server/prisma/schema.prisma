@@ -32,6 +32,8 @@ model PetShelter {
   Password    String
   Description String
   isBanned    Int
+  Country     String
+  City        String
   Animals     Animal[]
 }
 
@@ -62,6 +64,9 @@ model AnimalTypeDiseases {
   // Связи
   AnimalType   AnimalType @relation(fields: [AnimalTypeId], references: [ID])
   Diseases     Diseases   @relation(fields: [DiseasesId], references: [ID])
+
+  // Композитный уникальный индекс
+  @@unique([AnimalTypeId, DiseasesId])
 }
 
 // Описание таблицы Animal
@@ -71,11 +76,14 @@ model Animal {
   AnimalTypeId Int
   Name         String
   Description  String
+  Age          Int
+  Gender       String
 
   // Связи
   PetShelter   PetShelter? @relation(fields: [PetShelterId], references: [ID])
   AnimalType   AnimalType  @relation(fields: [AnimalTypeId], references: [ID])
   Diseases     AnimalDiseases[]
+  Criteria     AnimalCriteria[]
   AdoptionRequests AdoptionRequest[]
 }
 
@@ -88,6 +96,9 @@ model AnimalDiseases {
   // Связи
   Animal     Animal   @relation(fields: [AnimalId], references: [ID])
   Diseases   Diseases @relation(fields: [DiseasesId], references: [ID])
+
+  // Композитный уникальный индекс
+  @@unique([AnimalId, DiseasesId])
 }
 
 // Описание таблицы AdoptionRequest
@@ -102,4 +113,26 @@ model AdoptionRequest {
   // Связи
   Animal      Animal @relation(fields: [AnimalId], references: [ID])
   User        Users  @relation(fields: [UserId], references: [ID])
+}
+
+// Описание таблицы Criteria
+model Criteria {
+  ID          Int      @id @default(autoincrement())
+  Name        String   @unique
+  Description String
+  Animals     AnimalCriteria[]
+}
+
+// Описание таблицы AnimalCriteria
+model AnimalCriteria {
+  ID         Int      @id @default(autoincrement())
+  AnimalId   Int
+  CriteriaId Int
+
+  // Связи
+  Animal     Animal   @relation(fields: [AnimalId], references: [ID])
+  Criteria   Criteria @relation(fields: [CriteriaId], references: [ID])
+
+  // Композитный уникальный индекс
+  @@unique([AnimalId, CriteriaId])
 }

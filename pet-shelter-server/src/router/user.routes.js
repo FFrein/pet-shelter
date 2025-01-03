@@ -1,6 +1,7 @@
 import Router from "express";
 import { UserController } from "../authorization/user.controller.js";
 import { body } from "express-validator";
+import { roleMiddleware } from "../middlewares/role.middleware.js";
 
 const router = new Router();
 
@@ -92,6 +93,8 @@ router.post(
  *         description: Пользователь успешно вышел
  */
 router.post("/logout", UserController.logout);
+
+router.put("/ban", roleMiddleware(["admin"]), UserController.ban);
 
 // Обновление данных пользователя
 /**

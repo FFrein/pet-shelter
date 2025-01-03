@@ -2,7 +2,6 @@ import { UserService } from "./user.service.js";
 
 export class UserController {
   static async registration(req, res, next) {
-    console.log("UserController registration");
     try {
       const { username, email, password, phonenumber } = req.body;
       const userData = await UserService.registration(
@@ -17,6 +16,7 @@ export class UserController {
       });
       return res.json(userData);
     } catch (e) {
+      console.log(e);
       next(e);
     }
   }
@@ -25,6 +25,12 @@ export class UserController {
     try {
       const { email, password } = req.body;
       const userData = await UserService.login(email, password);
+
+      // Проверка, заблокирован ли пользователь
+      if (userData.user.isBanned == 1) {
+        return res.status(403).json({ message: "Пользователь заблокирован" });
+      }
+
       res.cookie("refreshToken", userData.refreshToken, {
         maxAge: 30 * 24 * 60 * 60 * 1000, //TODO брать из env
         httpOnly: true,
@@ -57,6 +63,28 @@ export class UserController {
       return res.json(userData);
     } catch (e) {
       next(e);
+    }
+  }
+
+  static async ban(req, res, next) {
+    try {
+      const { id, ban } = req.body;
+
+      if (!id) {
+        return res
+          .status(400)
+          .json({ error: "ID обязателен для обновления пользователя" });
+      }
+
+      const updatedPetShelter = await UserService.update(id, {
+        isBanned: ban,
+      });
+      return res.status(200).json(updatedPetShelter);
+    } catch (e) {
+      return res.status(500).json({
+        error: "Ошибка при изменении пользователя",
+        message: e.message,
+      });
     }
   }
 }

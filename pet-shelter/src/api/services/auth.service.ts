@@ -31,4 +31,11 @@ export default class AuthService {
   static async logout(): Promise<void> {
     $api.post<any>("user/logout");
   }
+
+  static async ban(id: number, ban: number): Promise<any> {
+    return $api
+      .put<any>("user/ban", { id, ban })
+      .then((response) => response)
+      .catch((response) => response);
+  }
 }

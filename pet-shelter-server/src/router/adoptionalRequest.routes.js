@@ -95,7 +95,7 @@ router.get("/", AdoptionRequestController.getAll);
  */
 router.get(
   "/:id",
-  roleMiddleware(["shelterManager"]),
+  roleMiddleware(["shelterManager", "user"]),
   AdoptionRequestController.getById
 );
 

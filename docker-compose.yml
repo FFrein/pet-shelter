@@ -1,0 +1,48 @@
+services:
+  mssql:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    container_name: pet-shelter-mssql
+    environment:
+      SA_PASSWORD: "Password_123#" # Пароль должен соответствовать требованиям MSSQL
+      ACCEPT_EULA: "Y"
+      MSSQL_PID: "Developer" # Можно использовать "Express" или другую лицензию при необходимости
+      MSSQL_DATABASE: "PetShalter" # Имя базы данных, которая будет создана
+    ports:
+      - "1433:1433" # Порт по умолчанию для MSSQL
+    volumes:
+      - mssql_data:/var/opt/mssql
+    networks:
+      - app-network
+
+  react-client:
+    build:
+      context: ./pet-shelter
+      dockerfile: Dockerfile
+    ports:
+      - "3001:80"
+    container_name: pet-shelter-client
+    environment:
+      VITE_REACT_APP_API_URL: "http://server:3000/api/"
+    networks:
+      - app-network
+
+  server:
+    build:
+      context: ./pet-shelter-server
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    container_name: pet-shelter-server
+    environment:
+      DATABASE_URL: "sqlserver://sa:Password_123#@mssql:1433;database=PetShalter;encrypt=true;trustServerCertificate=true"
+    depends_on:
+      - mssql
+    networks:
+      - app-network
+
+volumes:
+  mssql_data: # Определение тома для MSSQL
+
+networks:
+  app-network:
+    driver: bridge

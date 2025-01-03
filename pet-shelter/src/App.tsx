@@ -17,6 +17,7 @@ import { LoginPetShelter } from "./pages/loginPetShelter";
 import { RegisterPetShelter } from "./pages/registrPetShelter";
 import { AnimalPage } from "./pages/animal";
 import { AnimalType } from "./pages/animalType";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   const { store } = useContext(Context);
@@ -60,6 +61,7 @@ function App() {
         </Routes>
         <Footer />
       </Router>
+      <ToastContainer />
     </div>
   );
 }

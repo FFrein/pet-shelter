@@ -28,10 +28,12 @@ export class AdoptionRequestController {
       let requests;
       if (req.user.role == "shelterManager") {
         requests = await AdoptionRequestService.getAll({
+          ...req.query,
           petShelterId: req.user.id,
         });
       } else if (req.user.role == "user") {
         requests = await AdoptionRequestService.getAll({
+          ...req.query,
           UserId: req.user.id,
         });
       } else {
@@ -48,10 +50,24 @@ export class AdoptionRequestController {
   // Получить заявку по ID
   static async getById(req, res) {
     try {
-      const { id } = req.params;
-      const request = await AdoptionRequestService.getById(id);
+      const { id } = req.params; // id - id животного
+      if (isNaN(parseInt(id))) {
+        return res.status(404).json({ error: "Id Должно быть числом" });
+      }
+      let request;
+      if (req.user.role == "user") {
+        request = await AdoptionRequestService.getById({
+          AnimalId: parseInt(id),
+          UserId: req.user.id,
+        });
+      } else {
+        request = await AdoptionRequestService.getById({
+          animalId: id,
+          UserId: req.user.id,
+        });
+      }
       if (!request) {
-        return res.status(404).json({ error: "Заявка не найдена" });
+        return res.status(200).json({ message: "Заявка не найдена" });
       }
       return res.status(200).json(request);
     } catch (e) {
@@ -65,16 +81,13 @@ export class AdoptionRequestController {
   static async update(req, res) {
     try {
       const { id } = req.params;
-      const { animalId, userId, isProcessed } = req.body;
-      if (!id || !animalId || !userId || isProcessed === undefined) {
-        return res
-          .status(400)
-          .json({ error: "Все поля обязательны для обновления заявки" });
-      }
-      const updatedRequest = await AdoptionRequestService.update(id, {
-        animalId,
-        userId,
-        isProcessed,
+      const { animalId, userId, isProcessed, answer } = req.body;
+
+      const updatedRequest = await AdoptionRequestService.update(parseInt(id), {
+        AnimalId: animalId ? parseInt(animalId) : undefined,
+        UserId: userId ? parseInt(userId) : undefined,
+        isProcessed: isProcessed ? parseInt(isProcessed) : undefined,
+        answer: answer,
       });
       return res.status(200).json(updatedRequest);
     } catch (e) {

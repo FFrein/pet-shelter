@@ -16,24 +16,18 @@ export class AdoptionRequestModel {
   // Получить все заявки с фильтрацией по PetShelterId
   static async getAll(query) {
     try {
-      if (query.petShelterId) {
+      if (query?.Animal?.PetShelterId) {
         return await prisma.adoptionRequest.findMany({
-          where: {
-            Animal: {
-              PetShelterId: query.petShelterId, // Фильтрация по PetShelterId через связь с Animal
-            },
-          },
+          where: query,
           include: {
             Animal: true, // Включаем связанные записи животных для проверки
           },
         });
       }
 
-      if (query.UserId) {
+      if (query?.UserId) {
         return await prisma.adoptionRequest.findMany({
-          where: {
-            UserId: query.userId,
-          },
+          where: query,
           include: {
             Animal: true, // Включаем связанные записи животных для проверки
           },
@@ -43,9 +37,14 @@ export class AdoptionRequestModel {
       throw new Error("Ошибка при получении списка заявок: " + error.message);
     }
   }
-
-  static async getById(id) {
-    return await prisma.adoptionRequest.findUnique({ where: { ID: id } });
+  //TODO сделать связку animalId и UserId уникальными
+  static async getById(query) {
+    return await prisma.adoptionRequest.findFirst({
+      where: query,
+      include: {
+        Animal: true,
+      },
+    });
   }
 
   static async update(id, data) {

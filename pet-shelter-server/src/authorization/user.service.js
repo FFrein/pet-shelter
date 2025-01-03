@@ -72,4 +72,8 @@ export class UserService {
     const tokens = TokenService.generateTokens({ ...userDto });
     return { ...tokens, user: userDto };
   }
+
+  static async update(id, data) {
+    return await UserModel.update(id, data);
+  }
 }

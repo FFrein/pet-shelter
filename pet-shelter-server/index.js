@@ -19,9 +19,9 @@ app.use(
   })
 );
 app.options("*", cors());
-/*
+
 app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "http://localhost:5173");
+  res.header("Access-Control-Allow-Origin", "http://localhost:3001");
   res.header("Access-Control-Allow-Credentials", "true");
   res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
   res.header(
@@ -30,7 +30,6 @@ app.use((req, res, next) => {
   );
   next();
 });
-*/
 
 setupSwagger(app);
 

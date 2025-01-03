@@ -10,8 +10,11 @@ export class DiseaseModel {
     });
   }
 
-  static async getAll() {
-    return await prisma.diseases.findMany();
+  static async getAll(filters, pagination) {
+    return await prisma.diseases.findMany({
+      where: filters,
+      ...pagination,
+    });
   }
 
   static async getById(id) {

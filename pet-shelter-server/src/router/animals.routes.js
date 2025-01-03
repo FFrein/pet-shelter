@@ -34,6 +34,73 @@ const router = new Router();
  */
 router.get("/", AnimalsController.search);
 
+// Получить животное по ID
+/**
+ * @swagger
+ * /animals/{id}:
+ *   get:
+ *     summary: Получить животное по ID
+ *     description: Получение информации о животном из базы данных по его идентификатору.
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: Идентификатор животного
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: Информация о животном
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 ID:
+ *                   type: integer
+ *                 Name:
+ *                   type: string
+ *                 Description:
+ *                   type: string
+ *                 AnimalTypeId:
+ *                   type: integer
+ *                 PetShelterId:
+ *                   type: integer
+ *       400:
+ *         description: Некорректный запрос
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: Некорректный ID. Пожалуйста, укажите правильный ID.
+ *       404:
+ *         description: Животное не найдено
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: Животное с таким ID не найдено
+ *       500:
+ *         description: Ошибка сервера
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: Ошибка при получении животного
+ *                 message:
+ *                   type: string
+ */
+router.get("/:id", AnimalsController.getById);
+
 // Создание нового животного
 /**
  * @swagger

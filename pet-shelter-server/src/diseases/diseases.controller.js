@@ -23,7 +23,7 @@ export class DiseaseController {
   // Получить все заболевания
   static async getAll(req, res) {
     try {
-      const diseases = await DiseaseService.getAll();
+      const diseases = await DiseaseService.getAll(req.query);
       return res.status(200).json(diseases);
     } catch (error) {
       return res.status(500).json({

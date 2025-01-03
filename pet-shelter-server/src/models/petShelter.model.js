@@ -11,6 +11,8 @@ export default class PetShelterModel {
         Password: petShelter.password,
         Description: petShelter.description,
         isBanned: petShelter.isBanned,
+        City: petShelter.city,
+        Country: petShelter.country,
       },
     });
   }
@@ -31,17 +33,23 @@ export default class PetShelterModel {
 
   // Обновить информацию о приюте
   static async update(id, data) {
-    return await prisma.petShelter.update({
-      where: { ID: id },
-      data: {
-        Name: data.name,
-        Address: data.address,
-        Email: data.email,
-        Password: data.password,
-        Description: data.description,
-        isBanned: data.isBanned,
-      },
-    });
+    try {
+      return await prisma.petShelter.update({
+        where: { ID: id },
+        data: {
+          Name: data.name,
+          Address: data.address,
+          Email: data.email,
+          Password: data.password,
+          Description: data.description,
+          isBanned: data.isBanned,
+          City: data.City,
+          Country: data.Country,
+        },
+      });
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   // Удалить приют

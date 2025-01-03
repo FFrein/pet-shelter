@@ -11,9 +11,26 @@ export class DiseaseService {
   }
 
   // Получить все заболевания
-  static async getAll() {
+  static async getAll(query) {
     try {
-      return await DiseaseModel.getAll();
+      const filters = {};
+      let pagination = {};
+
+      // Фильтр по Name с частичным совпадением (регистронезависимый)
+      if (query?.search) {
+        filters.Name = { contains: query.search };
+      }
+      // Пагинация
+      const page = parseInt(query.page) || 1; // Номер страницы, по умолчанию 1
+      const pageSize = parseInt(query.pageSize) || 10; // Размер страницы, по умолчанию 10
+      const skip = (page - 1) * pageSize; // Сколько записей пропустить
+
+      pagination = {
+        skip,
+        take: pageSize,
+      };
+
+      return await DiseaseModel.getAll(filters, pagination);
     } catch (error) {
       throw new Error(
         "Ошибка при получении списка заболеваний: " + error.message

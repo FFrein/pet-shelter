@@ -16,19 +16,18 @@ export class AdoptionRequestService {
       const whereClause = {};
 
       // Добавляем параметры только если они существуют
-      if (query.UserId) {
+      if (query?.UserId) {
         whereClause.UserId = query.UserId;
       }
-      if (query.AnimalId) {
+      if (query?.AnimalId) {
         whereClause.AnimalId = query.AnimalId;
       }
-      if (query.isProcessed !== undefined) {
+      if (query?.isProcessed !== undefined) {
         whereClause.isProcessed = query.isProcessed;
       }
-      if (query.petShelterId) {
-        whereClause.petShelterId = query.petShelterId;
+      if (query?.petShelterId) {
+        whereClause.Animal = { PetShelterId: query.petShelterId };
       }
-
       // Выполняем запрос с динамически сформированным where
       return await AdoptionRequestModel.getAll(whereClause);
     } catch (error) {
@@ -37,11 +36,22 @@ export class AdoptionRequestService {
   }
 
   // Получить заявку по ID
-  static async getById(id) {
+  static async getById(query) {
     try {
-      const request = await AdoptionRequestModel.getById(id);
+      const whereClause = {};
+
+      // Добавляем параметры только если они существуют
+      if (query.UserId) {
+        whereClause.UserId = query.UserId;
+      }
+      if (query.AnimalId) {
+        whereClause.AnimalId = query.AnimalId;
+      }
+      whereClause.isProcessed = 0;
+
+      const request = await AdoptionRequestModel.getById(whereClause);
       if (!request) {
-        throw new Error("Заявка с таким ID не найдена");
+        return null;
       }
       return request;
     } catch (error) {
@@ -52,7 +62,7 @@ export class AdoptionRequestService {
   // Обновить заявку
   static async update(id, updateData) {
     try {
-      const request = await AdoptionRequestModel.getById(id);
+      const request = await AdoptionRequestModel.getById({ ID: id });
       if (!request) {
         throw new Error("Заявка с таким ID не найдена");
       }

@@ -16,9 +16,18 @@ export default class PetShelterController {
   // Создать новый приют
   static async create(req, res, next) {
     try {
-      const { name, address, email, password, description } = req.body;
+      const { name, address, email, password, description, city, country } =
+        req.body;
 
-      if (!name || !address || !email || !password || !description) {
+      if (
+        !name ||
+        !address ||
+        !email ||
+        !password ||
+        !description ||
+        !city ||
+        !country
+      ) {
         return res
           .status(400)
           .json({ error: "Все поля обязательны для создания приюта" });
@@ -31,6 +40,8 @@ export default class PetShelterController {
         password,
         description,
         isBanned: 0,
+        city,
+        country,
       });
       return res.status(201).json(petShelter);
     } catch (e) {
@@ -55,6 +66,12 @@ export default class PetShelterController {
         email,
         password
       );
+
+      // Проверка, заблокирован ли пользователь
+      if (petShelterData.user.isBanned == 1) {
+        return res.status(403).json({ message: "Пользователь заблокирован" });
+      }
+
       res.cookie("refreshToken", petShelterData.refreshToken, {
         maxAge: 30 * 24 * 60 * 60 * 1000, //TODO взять время жизни из env
         httpOnly: true,
@@ -82,8 +99,17 @@ export default class PetShelterController {
   // Обновить информацию о приюте
   static async update(req, res, next) {
     try {
-      const { ID, name, address, email, password, description, isBanned } =
-        req.body;
+      const {
+        ID,
+        name,
+        address,
+        email,
+        password,
+        description,
+        isBanned,
+        city,
+        country,
+      } = req.body;
 
       if (!ID) {
         return res
@@ -98,6 +124,29 @@ export default class PetShelterController {
         password,
         description,
         isBanned,
+        city,
+        country,
+      });
+      return res.status(200).json(updatedPetShelter);
+    } catch (e) {
+      return res
+        .status(500)
+        .json({ error: "Ошибка при обновлении приюта", message: e.message });
+    }
+  }
+
+  // Блокировка приюта
+  static async ban(req, res, next) {
+    try {
+      const { id, ban } = req.body;
+
+      if (!id) {
+        return res
+          .status(400)
+          .json({ error: "ID обязателен для обновления приюта" });
+      }
+      const updatedPetShelter = await PetShelterService.update(id, {
+        isBanned: ban,
       });
       return res.status(200).json(updatedPetShelter);
     } catch (e) {
