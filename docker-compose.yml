@@ -34,7 +34,8 @@ services:
       - "3000:3000"
     container_name: pet-shelter-server
     environment:
-      DATABASE_URL: "sqlserver://sa:Password_123#@mssql:1433;database=PetShalter;encrypt=true;trustServerCertificate=true"
+      DATABASE_URL: "sqlserver://pet-shelter-mssql:1433;database=PetShalter;user=sa;password=Password_123#;encrypt=true;trustServerCertificate=true"
+      CLIENT_URL: "http://localhost:3001"
     depends_on:
       - mssql
     networks:

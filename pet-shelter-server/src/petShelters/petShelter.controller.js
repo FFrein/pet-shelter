@@ -1,7 +1,6 @@
 import PetShelterService from "./petShelter.service.js";
 
 export default class PetShelterController {
-  // Получить все приюты
   static async search(req, res, next) {
     try {
       const petShelters = await PetShelterService.getAll();
@@ -13,7 +12,6 @@ export default class PetShelterController {
     }
   }
 
-  // Создать новый приют
   static async create(req, res, next) {
     try {
       const { name, address, email, password, description, city, country } =
@@ -51,7 +49,6 @@ export default class PetShelterController {
     }
   }
 
-  // Авторизация приюта
   static async login(req, res, next) {
     try {
       const { email, password } = req.body;
@@ -67,8 +64,7 @@ export default class PetShelterController {
         password
       );
 
-      // Проверка, заблокирован ли пользователь
-      if (petShelterData.user.isBanned == 1) {
+      if (petShelterData?.user?.isBanned == 1) {
         return res.status(403).json({ message: "Пользователь заблокирован" });
       }
 
@@ -84,10 +80,9 @@ export default class PetShelterController {
     }
   }
 
-  // Логаут
   static async logout(req, res, next) {
     try {
-      const { refreshToken } = req.cookies;
+      //const { refreshToken } = req.cookies;
       //await PetShelterService.logout(refreshToken);
       res.clearCookie("refreshToken");
       return res.status(200).json({ message: "Успешный выход" });
@@ -96,7 +91,6 @@ export default class PetShelterController {
     }
   }
 
-  // Обновить информацию о приюте
   static async update(req, res, next) {
     try {
       const {
@@ -135,7 +129,6 @@ export default class PetShelterController {
     }
   }
 
-  // Блокировка приюта
   static async ban(req, res, next) {
     try {
       const { id, ban } = req.body;

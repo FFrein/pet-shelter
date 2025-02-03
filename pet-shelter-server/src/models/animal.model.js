@@ -11,6 +11,7 @@ export default class AnimalModel {
         Description: animal.description,
         Age: animal.age,
         Gender: animal.gender,
+        Archived: animal.Archived,
       },
     });
   }
@@ -57,14 +58,24 @@ export default class AnimalModel {
         AnimalTypeId: data.animalTypeId,
         Name: data.name,
         Description: data.description,
+        Age: data.age,
+        Gender: data.gender,
       },
     });
   }
 
   // Удаление животного
   static async delete(id) {
+    return await prisma.animal.update({
+      where: { ID: id },
+      data: {
+        Archived: 1,
+      },
+    });
+    /*
     return await prisma.animal.delete({
       where: { ID: id },
     });
+    */
   }
 }

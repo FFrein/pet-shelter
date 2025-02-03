@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback, useContext } from "react";
 import { AnimalTypesService } from "../../api/services/all.services";
-import { Link } from "react-router-dom";
+//import { Link } from "react-router-dom";
 import Paginator from "../Paginator";
 import { Context } from "../../main";
 
@@ -8,7 +8,7 @@ export const GetAllAnimalTypesForm = () => {
   const { store } = useContext(Context);
   const [animalTypes, setAnimalTypes] = useState<any[]>([]);
   const [error, setError] = useState<string | null>(null);
-  const [searchTerm, setSearchTerm] = useState<string>("");
+  const [searchTerm] = useState<string>("");
   const [currentPage, setCurrentPage] = useState<number>(1);
 
   // Функция для получения данных с сервера
@@ -46,6 +46,7 @@ export const GetAllAnimalTypesForm = () => {
 
   return (
     <div className="w-full">
+      {/*
       <input
         type="text"
         value={searchTerm}
@@ -53,26 +54,28 @@ export const GetAllAnimalTypesForm = () => {
         placeholder="Поиск типов животных..."
         className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
       />
+      */}
 
       {error && <div className="text-red-500 mt-2">{error}</div>}
 
       <ul className="mt-4 h-[400px] overflow-y-auto overflow-x-hidden">
         {animalTypes
           ? animalTypes.map((type) => (
-              <Link to={`/animalType/${type.ID}`} key={type.ID}>
-                <li className="p-2 border-b border-gray-200 hover:bg-gray-100">
-                  {store.user.role == "admin" ||
-                  store.user.role == "shelterManager" ? (
-                    <>
-                      <strong>ID:</strong> {type.ID},
-                    </>
-                  ) : (
-                    ""
-                  )}
-                  <strong>TypeName:</strong> {type.TypeName},{" "}
-                  <strong>Description:</strong> {type.Description}
-                </li>
-              </Link>
+              <li
+                className="p-2 border-b border-gray-200 hover:bg-gray-100"
+                key={type.ID}
+              >
+                {store.user.role == "admin" ||
+                store.user.role == "shelterManager" ? (
+                  <>
+                    <strong>ID:</strong> {type.ID},
+                  </>
+                ) : (
+                  ""
+                )}
+                <strong>TypeName:</strong> {type.TypeName},{" "}
+                <strong>Description:</strong> {type.Description}
+              </li>
             ))
           : ""}
       </ul>

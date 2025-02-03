@@ -2,6 +2,7 @@ import { useContext, useState } from "react";
 import { AnimalsService } from "../../api/services/all.services";
 import { Context } from "../../main";
 import { observer } from "mobx-react-lite";
+import { toast } from "react-toastify";
 
 export const CreateAnimalForm = observer(() => {
   const { store } = useContext(Context);
@@ -12,19 +13,32 @@ export const CreateAnimalForm = observer(() => {
     name: "",
     description: "",
     age: 0,
-    gender: "",
+    gender: "", // Выбранный гендер
   });
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      if (animal.petShelterId) {
-        const response = await AnimalsService.create(animal);
-        console.log(response.data);
-      } else {
-        console.log("Pet SHelter Id Error");
+      if (!animal.gender || !["м", "ж"].includes(animal.gender)) {
+        toast.error("Пожалуйста, выберите корректный гендер (м или ж)");
+        return;
       }
-    } catch (error) {
+
+      const response = await AnimalsService.create(animal);
+      toast.success("Животное успешно создано!");
+      console.log(response.data);
+
+      // Сброс формы после успешного создания
+      setAnimal({
+        animalTypeId: 0,
+        petShelterId: parseInt(store.user.id),
+        name: "",
+        description: "",
+        age: 0,
+        gender: "",
+      });
+    } catch (error: any) {
+      toast.error(`Ошибка при создании животного: ${error.message || error}`);
       console.error(error);
     }
   };
@@ -37,36 +51,38 @@ export const CreateAnimalForm = observer(() => {
         onChange={(e) =>
           setAnimal({ ...animal, animalTypeId: Number(e.target.value) })
         }
+        className="p-2 border border-gray-300 rounded-md"
       />
-      {/*
-            <input
-        type="number"
-        placeholder="Pet Shelter ID"
-        onChange={(e) =>
-          setAnimal({ ...animal, petShelterId: Number(e.target.value) })
-        }
-      />
-      */}
       <input
         type="text"
         placeholder="Name"
+        value={animal.name}
         onChange={(e) => setAnimal({ ...animal, name: e.target.value })}
+        className="p-2 border border-gray-300 rounded-md"
       />
       <input
         type="number"
-        placeholder="age"
+        placeholder="Age"
+        value={animal.age || ""}
         onChange={(e) =>
           setAnimal({ ...animal, age: parseInt(e.target.value) })
         }
+        className="p-2 border border-gray-300 rounded-md"
       />
-      <input
-        type="text"
-        placeholder="gender"
+      <select
+        value={animal.gender}
         onChange={(e) => setAnimal({ ...animal, gender: e.target.value })}
-      />
+        className="p-2 border border-gray-300 rounded-md"
+      >
+        <option value="">Выберите гендер</option>
+        <option value="м">М</option>
+        <option value="ж">Ж</option>
+      </select>
       <textarea
         placeholder="Description"
+        value={animal.description}
         onChange={(e) => setAnimal({ ...animal, description: e.target.value })}
+        className="p-2 border border-gray-300 rounded-md"
       />
       <button
         type="submit"

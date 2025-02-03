@@ -57,6 +57,7 @@ export const Registration = () => {
           />
           <input
             placeholder="phone number"
+            type="number"
             value={form.phonenumber}
             onChange={(e) => {
               setForm({ ...form, phonenumber: e.target.value });

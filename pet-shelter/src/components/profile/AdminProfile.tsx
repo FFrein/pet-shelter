@@ -72,7 +72,7 @@ export const AdminProfile = observer(() => {
   };
 
   return (
-    <div className="mx-auto max-w-4xl p-4 bg-gray-100 rounded-md shadow-md">
+    <div className="mx-auto max-w-4xl p-4 rounded-md shadow-md">
       <h1 className="text-2xl font-bold mb-4">Админ-панель</h1>
       <div className="flex flex-col gap-8">
         {/* Блокировка пользователя */}
@@ -86,7 +86,7 @@ export const AdminProfile = observer(() => {
               type="number"
               value={userId || ""}
               onChange={(e) => setUserId(Number(e.target.value))}
-              className="p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500"
+              className="p-2 border rounded-md focus:ring-2 focus:ring-blue-500"
             />
             <div className="flex items-center gap-2">
               <input

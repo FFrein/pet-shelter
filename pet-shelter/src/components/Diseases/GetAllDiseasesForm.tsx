@@ -1,6 +1,6 @@
 import { useCallback, useContext, useEffect, useState } from "react";
 import { DiseasesService } from "../../api/services/all.services";
-import { Link } from "react-router-dom";
+//import { Link } from "react-router-dom";
 import Paginator from "../Paginator";
 import { Context } from "../../main";
 
@@ -56,20 +56,21 @@ export const GetAllDiseasesForm = () => {
 
       <ul className="mt-4 h-[410px] overflow-y-auto overflow-x-hidden">
         {diseases.map((type) => (
-          <Link to={`/diseases/${type.ID}`} key={type.ID}>
-            <li className="p-2 border-b border-gray-200 hover:bg-gray-100">
-              {store.user.role == "admin" ||
-              store.user.role == "shelterManager" ? (
-                <>
-                  <strong>ID:</strong> {type.ID},
-                </>
-              ) : (
-                ""
-              )}
-              <strong>Name:</strong> {type.Name},<strong>Description:</strong>{" "}
-              {type.Description}
-            </li>
-          </Link>
+          <li
+            className="p-2 border-b border-gray-200 hover:bg-gray-100"
+            key={type.ID}
+          >
+            {store.user.role == "admin" ||
+            store.user.role == "shelterManager" ? (
+              <>
+                <strong>ID:</strong> {type.ID},
+              </>
+            ) : (
+              ""
+            )}
+            <strong>Name:</strong> {type.Name},<strong>Description:</strong>{" "}
+            {type.Description}
+          </li>
         ))}
       </ul>
       <div>

@@ -27,6 +27,7 @@ export class UserController {
       const userData = await UserService.login(email, password);
 
       // Проверка, заблокирован ли пользователь
+      console.log(userData);
       if (userData.user.isBanned == 1) {
         return res.status(403).json({ message: "Пользователь заблокирован" });
       }

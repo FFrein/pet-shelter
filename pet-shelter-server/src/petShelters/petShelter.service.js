@@ -3,21 +3,18 @@ import PetShelterModel from "../models/petShelter.model.js";
 import { TokenService } from "../authorization/token.service.js";
 import { PetShelterDto } from "../database/dtos/dto.js";
 export default class PetShelterService {
-  // Получить все приюты
   static async getAll() {
     return await PetShelterModel.getAll();
   }
 
-  // Создать новый приют с хэшированием пароля
   static async create(petShelter) {
-    const hashedPassword = await bcrypt.hash(petShelter.password, 10); // Хэшируем пароль
+    const hashedPassword = await bcrypt.hash(petShelter.password, 10);
     return await PetShelterModel.create({
       ...petShelter,
-      password: hashedPassword, // Сохраняем хэшированный пароль
+      password: hashedPassword,
     });
   }
 
-  // Авторизация приюта
   static async authenticate(email, password) {
     const petShelter = await PetShelterModel.getByEmail(email);
     if (!petShelter) {
@@ -36,12 +33,10 @@ export default class PetShelterService {
     return { ...tokens, petShelter: shelterDto };
   }
 
-  // Логаут
   static async logout(refreshToken) {
     return await TokenService.removeToken(refreshToken);
   }
 
-  // Обновить информацию о приюте
   static async update(id, data) {
     return await PetShelterModel.update(id, data);
   }

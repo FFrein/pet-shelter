@@ -14,6 +14,7 @@ import { AnimalDiseasesFormProfile } from "../components/profile/AnimalDiseasesF
 import { AnimalTypeProfile } from "../components/profile/AnimalTypeProfile";
 import { AdoptionalRequestShelter } from "../components/profile/AdoptionalRequestShelter";
 import { AnimalCriteriaProfile } from "../components/profile/AnimalCriteriaProfile";
+import { CriteriaProfile } from "../components/profile/Criteria";
 
 const Profile: React.FC = observer(() => {
   const { store } = useContext(Context);
@@ -81,11 +82,16 @@ const Profile: React.FC = observer(() => {
               <Link to="diseases" className="text-blue-500 hover:underline">
                 Diseases
               </Link>
+              {/*
               <Link
                 to="animal-type-diseases"
                 className="text-blue-500 hover:underline"
               >
                 Animal Type Diseases
+              </Link>
+               */}
+              <Link to="criteria" className="text-blue-500 hover:underline">
+                Criteria
               </Link>
             </>
           )}
@@ -101,7 +107,6 @@ const Profile: React.FC = observer(() => {
         </nav>
       </aside>
 
-      {/* Основное содержимое */}
       <main className="pl-6 w-full">
         <Routes>
           {role === "shelterManager" ? (
@@ -135,6 +140,7 @@ const Profile: React.FC = observer(() => {
                 path="/animal-type-diseases"
                 element={<AnimalTypeDiseasesProfile />}
               />
+              <Route path="/criteria" element={<CriteriaProfile />} />
             </>
           ) : (
             ""

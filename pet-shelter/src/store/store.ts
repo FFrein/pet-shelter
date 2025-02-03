@@ -3,6 +3,7 @@ import AuthService from "../api/services/auth.service";
 import IUserContext from "../consts/models";
 import $api from "../api/http/http";
 import PetShelterAuthService from "../api/services/petShelterAuth.service";
+import { toast } from "react-toastify";
 
 export default class Store {
   user = {} as IUserContext;
@@ -37,7 +38,7 @@ export default class Store {
       console.log(e.response?.data?.message);
     }
   }
-    */
+  */
 
   async login(email: string, password: string) {
     try {
@@ -142,16 +143,24 @@ export default class Store {
         city,
         country
       );
+
       if (resp.status !== 200 && resp.status !== 201) {
         console.log(resp);
-        throw new Error(resp.response.data.error || "Registration failed");
+        throw new Error(resp.response.data.error || "Ошибка регистрации");
       }
-      localStorage.setItem("accessToken", resp.data.accessToken);
 
-      this.setAuth(true);
-      this.setUser(resp.data.user);
+      if (resp.data.accessToken) {
+        localStorage.setItem("accessToken", resp.data.accessToken);
+
+        this.setAuth(true);
+        this.setUser(resp.data.user);
+      }
+
+      toast.success("Регистрация прошла успешно!");
     } catch (e: any) {
+      toast.error(`Ошибка при регистрации: ${e}`);
       console.error(e.message);
+
       throw e;
     }
   }

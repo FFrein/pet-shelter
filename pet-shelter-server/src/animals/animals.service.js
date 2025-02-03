@@ -62,6 +62,8 @@ export default class AnimalService {
         isBanned: 0,
       };
 
+      filters.Archived = 0;
+
       // Пагинация
       const page = parseInt(query.page) || 1; // Номер страницы, по умолчанию 1
       const pageSize = parseInt(query.pageSize) || 10; // Размер страницы, по умолчанию 10
@@ -103,22 +105,11 @@ export default class AnimalService {
   }
 
   // Удалить животное
-  static async delete(req, res, next) {
+  static async delete(ID) {
     try {
-      const { ID } = req.params;
-
-      if (!ID) {
-        return res
-          .status(400)
-          .json({ error: "ID животного обязателен для удаления" });
-      }
-
-      await AnimalService.delete(ID);
-      return res.status(200).json({ message: "Животное успешно удалено" });
+      return await AnimalModel.delete(ID);
     } catch (e) {
-      return res
-        .status(500)
-        .json({ error: "Ошибка при удалении животного", message: e.message });
+      throw new Error("Ошибка при удалении животного: " + e.message);
     }
   }
 }

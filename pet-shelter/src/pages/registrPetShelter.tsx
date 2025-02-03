@@ -31,12 +31,9 @@ export const RegisterPetShelter = () => {
 
       if (store.isAuth) {
         navigate("/gallery");
-      } else {
-        alert("Ошибка авторищзации");
       }
     } catch (error) {
       console.error(error);
-      alert("Ошибка авторищзации");
     }
   };
 

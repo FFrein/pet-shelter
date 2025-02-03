@@ -22,7 +22,7 @@ const CriteriaList: React.FC<CriteriaListProps> = ({ setSearchCategories }) => {
   const [categories, setCategories] = useState([]);
   useEffect(() => {
     const fetchCategories = async () => {
-      const { data } = await CriteriaService.getAll();
+      const { data } = await CriteriaService.getAll(0);
       setCategories(data);
     };
 

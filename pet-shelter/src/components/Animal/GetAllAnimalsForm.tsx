@@ -48,29 +48,31 @@ export const GetAllAnimalsForm: React.FC<GetAllAnimalsFormType> = ({
   return (
     <div className="flex-1 flex flex-col justify-between">
       <div>
-        <button
-          onClick={() => {
-            handleGetAll(0);
-          }}
-          className="bg-[#ed5c01] hover:bg-[#d65400] text-white font-bold py-2 px-4 rounded"
-        >
-          Поиск
-        </button>
+        <div>
+          <button
+            onClick={() => {
+              handleGetAll(0);
+            }}
+            className="bg-[#ed5c01] hover:bg-[#d65400] text-white font-bold py-2 px-4 rounded"
+          >
+            Поиск
+          </button>
+        </div>
+        {error && <div className="text-red-500 mt-2">{error}</div>}
+        <ul className="mt-4 space-y-2 flex flex-col gap-2">
+          {animals.map((animal) => (
+            <Link to={`/animal/${animal.ID}`} key={animal.ID}>
+              <li className="p-2 bg-gray-100 rounded">
+                <strong>ID:</strong> {animal.ID}, <strong>Имя:</strong>{" "}
+                {animal.Name},<strong>Описание:</strong> {animal.Description},
+                <strong>Тип:</strong> {animal.AnimalType?.TypeName},
+                <strong>Приют:</strong> {animal.PetShelter?.Name},
+                <strong>Адрес:</strong> {animal.PetShelter?.Address}
+              </li>
+            </Link>
+          ))}
+        </ul>
       </div>
-      {error && <div className="text-red-500 mt-2">{error}</div>}
-      <ul className="mt-4 space-y-2 flex flex-col gap-2">
-        {animals.map((animal) => (
-          <Link to={`/animal/${animal.ID}`} key={animal.ID}>
-            <li className="p-2 bg-gray-100 rounded">
-              <strong>ID:</strong> {animal.ID}, <strong>Имя:</strong>{" "}
-              {animal.Name},<strong>Описание:</strong> {animal.Description},
-              <strong>Тип:</strong> {animal.AnimalType?.TypeName},
-              <strong>Приют:</strong> {animal.PetShelter?.Name},
-              <strong>Адрес:</strong> {animal.PetShelter?.Address}
-            </li>
-          </Link>
-        ))}
-      </ul>
       <Paginator
         currentPage={currentPage}
         onPageChange={handleChangePage}

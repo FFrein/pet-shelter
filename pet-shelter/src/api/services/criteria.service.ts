@@ -9,8 +9,8 @@ export class CriteriaService {
     return $api.post<any>("/criteria", criteria);
   }
 
-  static async getAll(): Promise<AxiosResponse<any>> {
-    return $api.get<any>("/criteria");
+  static async getAll(page: any): Promise<AxiosResponse<any>> {
+    return $api.get<any>(`/criteria?page=${page}`);
   }
 
   static async getById(id: number): Promise<AxiosResponse<any>> {

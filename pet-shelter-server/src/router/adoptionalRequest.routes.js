@@ -32,7 +32,7 @@ const router = express.Router();
  *       400:
  *         description: Ошибка валидации
  */
-router.post("/", AdoptionRequestController.create);
+router.post("/", roleMiddleware(["user"]), AdoptionRequestController.create);
 
 /**
  * @swagger
