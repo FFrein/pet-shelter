@@ -1,4 +1,4 @@
-import AnimalTypeService from "./animalsType.service.js";
+import AnimalTypeService from "../services/animalsType.service.js";
 
 export default class AnimalTypeController {
   static async getAll(req, res) {

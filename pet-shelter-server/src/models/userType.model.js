@@ -1,5 +1,10 @@
 import { prisma } from "../database/db.js";
 
+export const UserRole = {
+  SHELTER: "shelterManager",
+  ADMIN: "admin",
+  USER: "user",
+};
 export class UserTypeModel {
   static async create(userType) {
     return await prisma.userTypes.create({

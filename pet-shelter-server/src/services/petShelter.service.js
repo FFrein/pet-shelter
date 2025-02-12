@@ -1,6 +1,6 @@
 import bcrypt from "bcrypt";
 import PetShelterModel from "../models/petShelter.model.js";
-import { TokenService } from "../authorization/token.service.js";
+import { TokenService } from "./token.service.js";
 import { PetShelterDto } from "../database/dtos/dto.js";
 export default class PetShelterService {
   static async getAll() {

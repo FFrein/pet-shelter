@@ -1,4 +1,4 @@
-import PetShelterController from "../petShelters/petShelter.controller.js";
+import PetShelterController from "../controller/petShelter.controller.js";
 import Router from "express";
 import { authMiddleware } from "../middlewares/auth.middleware.js";
 import { roleMiddleware } from "../middlewares/role.middleware.js";

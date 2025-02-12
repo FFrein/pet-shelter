@@ -1,4 +1,4 @@
-import { AnimalDiseasesService } from "./animalsDiseases.service.js";
+import { AnimalDiseasesService } from "../services/animalsDiseases.service.js";
 
 export class AnimalDiseasesController {
   // Создать запись

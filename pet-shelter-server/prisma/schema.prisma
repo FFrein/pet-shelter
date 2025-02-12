@@ -79,6 +79,7 @@ model Animal {
   Age          Int
   Gender       String
   Archived     Int
+  ImageUrl     String
 
   // Связи
   PetShelter   PetShelter? @relation(fields: [PetShelterId], references: [ID])

@@ -1,4 +1,4 @@
-import { AnimalTypeDiseasesService } from "./animalsTypeDiseases.service.js";
+import { AnimalTypeDiseasesService } from "../services/animalsTypeDiseases.service.js";
 
 export class AnimalTypeDiseasesController {
   // Создать новую связь между типом животного и заболеванием

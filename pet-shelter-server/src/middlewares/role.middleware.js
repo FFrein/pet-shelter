@@ -1,4 +1,4 @@
-import { TokenService } from "../authorization/token.service.js";
+import { TokenService } from "../services/token.service.js";
 
 export function roleMiddleware(allowedRoles) {
   return (req, res, next) => {

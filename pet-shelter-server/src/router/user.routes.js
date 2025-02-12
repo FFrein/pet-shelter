@@ -1,5 +1,5 @@
 import Router from "express";
-import { UserController } from "../authorization/user.controller.js";
+import { UserController } from "../controller/user.controller.js";
 import { body } from "express-validator";
 import { roleMiddleware } from "../middlewares/role.middleware.js";
 

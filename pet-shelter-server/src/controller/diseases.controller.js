@@ -1,4 +1,4 @@
-import { DiseaseService } from "./diseases.service.js";
+import { DiseaseService } from "../services/diseases.service.js";
 
 export class DiseaseController {
   // Создать новое заболевание

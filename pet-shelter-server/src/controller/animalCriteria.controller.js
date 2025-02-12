@@ -1,4 +1,4 @@
-import { AnimalCriteriaService } from "./animalCriteria.service.js";
+import { AnimalCriteriaService } from "../services/animalCriteria.service.js";
 
 // Контроллер для AnimalCriteria
 export class AnimalCriteriaController {

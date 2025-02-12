@@ -1,4 +1,4 @@
-import { AdoptionRequestService } from "./adoptionalRequest.service.js";
+import { AdoptionRequestService } from "../services/adoptionalRequest.service.js";
 
 export class AdoptionRequestController {
   static async create(req, res) {

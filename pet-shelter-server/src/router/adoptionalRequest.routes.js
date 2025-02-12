@@ -1,5 +1,5 @@
 import express from "express";
-import { AdoptionRequestController } from "../adoptionalRequest/adoptionalRequest.controller.js";
+import { AdoptionRequestController } from "../controller/adoptionalRequest.controller.js";
 import { roleMiddleware } from "../middlewares/role.middleware.js";
 
 const router = express.Router();

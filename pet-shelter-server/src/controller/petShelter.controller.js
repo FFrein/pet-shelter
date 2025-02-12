@@ -1,4 +1,4 @@
-import PetShelterService from "./petShelter.service.js";
+import PetShelterService from "../services/petShelter.service.js";
 
 export default class PetShelterController {
   static async search(req, res, next) {

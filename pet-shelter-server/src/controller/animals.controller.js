@@ -1,4 +1,5 @@
-import AnimalService from "./animals.service.js";
+import AnimalService from "../services/animals.service.js";
+import FileService from "../services/file.service.js";
 
 export default class AnimalsController {
   // Получить все животные
@@ -49,6 +50,11 @@ export default class AnimalsController {
       const { petShelterId, animalTypeId, name, description, age, gender } =
         req.body;
 
+      const image = req.file;
+
+      const fs = new FileService();
+
+      const imageUrl = await fs.uploadFile(image);
       // Проверка на обязательные поля
       if (
         !petShelterId ||
@@ -56,7 +62,8 @@ export default class AnimalsController {
         !name ||
         !description ||
         !age ||
-        !gender
+        !gender ||
+        !imageUrl
       ) {
         return res
           .status(400)
@@ -68,13 +75,14 @@ export default class AnimalsController {
       }
 
       const animal = await AnimalService.create({
-        petShelterId,
-        animalTypeId,
+        petShelterId: parseInt(petShelterId),
+        animalTypeId: parseInt(animalTypeId),
         name,
         description,
         age: parseInt(age),
         gender,
         Archived: 0,
+        ImageUrl: imageUrl,
       });
       return res.status(201).json(animal);
     } catch (e) {

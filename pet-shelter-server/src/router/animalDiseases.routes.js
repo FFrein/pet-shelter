@@ -1,5 +1,5 @@
 import express from "express";
-import { AnimalDiseasesController } from "../animalDiseases/animalsDiseases.contoller.js";
+import { AnimalDiseasesController } from "../controller/animalsDiseases.controller.js";
 import { roleMiddleware } from "../middlewares/role.middleware.js";
 
 const router = express.Router();

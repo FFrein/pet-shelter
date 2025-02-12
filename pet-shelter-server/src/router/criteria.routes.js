@@ -1,5 +1,5 @@
 import express from "express";
-import { CriteriaController } from "../criteria/criteria.controller.js";
+import { CriteriaController } from "../controller/criteria.controller.js";
 
 const router = express.Router();
 

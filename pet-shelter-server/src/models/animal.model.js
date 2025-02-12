@@ -12,6 +12,7 @@ export default class AnimalModel {
         Age: animal.age,
         Gender: animal.gender,
         Archived: animal.Archived,
+        ImageUrl: animal.ImageUrl,
       },
     });
   }

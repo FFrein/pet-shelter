@@ -1,6 +1,6 @@
 // src/routes/disease.routes.js
 import express from "express";
-import { DiseaseController } from "../diseases/diseases.controller.js";
+import { DiseaseController } from "../controller/diseases.controller.js";
 import { roleMiddleware } from "../middlewares/role.middleware.js";
 
 const router = express.Router();

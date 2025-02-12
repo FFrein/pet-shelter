@@ -1,4 +1,4 @@
-import CriteriaService from "./criteria.service.js";
+import CriteriaService from "../services/criteria.service.js";
 
 export class CriteriaController {
   // Получить все критерии

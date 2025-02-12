@@ -1,6 +1,8 @@
-import AnimalsController from "../animals/animals.controller.js";
+import AnimalsController from "../controller/animals.controller.js";
 import { roleMiddleware } from "../middlewares/role.middleware.js";
 import Router from "express";
+import multer from "multer";
+const upload = multer({ storage: multer.memoryStorage() });
 
 const router = new Router();
 
@@ -134,7 +136,12 @@ router.get("/:id", AnimalsController.getById);
  *       400:
  *         description: Ошибка при создании животного
  */
-router.post("/", roleMiddleware(["shelterManager"]), AnimalsController.create);
+router.post(
+  "/",
+  roleMiddleware(["shelterManager"]),
+  upload.single("image"),
+  AnimalsController.create
+);
 
 // Обновить данные животного
 /**

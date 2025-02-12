@@ -32,5 +32,6 @@ export const AnimalByIdDto = (animal) => {
     Diseases: animal.Diseases,
     Age: animal.Age,
     Gender: animal.Gender,
+    ImageUrl: animal.ImageUrl,
   };
 };

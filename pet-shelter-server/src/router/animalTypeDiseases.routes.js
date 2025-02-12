@@ -1,6 +1,6 @@
 // src/routes/animalTypeDiseases.routes.js
 import express from "express";
-import { AnimalTypeDiseasesController } from "../animalTypeDiseases/animalsTypeDiseases.controller.js";
+import { AnimalTypeDiseasesController } from "../controller/animalsTypeDiseases.controller.js";
 import { roleMiddleware } from "../middlewares/role.middleware.js";
 
 const router = express.Router();
