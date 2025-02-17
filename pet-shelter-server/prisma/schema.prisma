@@ -138,3 +138,10 @@ model AnimalCriteria {
   // Композитный уникальный индекс
   @@unique([AnimalId, CriteriaId])
 }
+
+model Notification {
+  ID               Int      @id @default(autoincrement())
+  TelegramChatId   Int
+  City             String
+  Country          String
+}

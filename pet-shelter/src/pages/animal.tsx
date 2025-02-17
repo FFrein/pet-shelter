@@ -39,7 +39,6 @@ export const AnimalPage: React.FC = () => {
       try {
         const { data } = await AdoptionRequestService.getById(id);
         setRequest(data);
-        console.log(request);
       } catch (error: any) {
         setError("Не удалось загрузить информацию о запросе.");
       } finally {
@@ -90,6 +89,8 @@ export const AnimalPage: React.FC = () => {
         <div className="bg-white shadow-md rounded-lg p-6">
           <h1 className="text-2xl font-bold mb-4">Информация о животном</h1>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <img src={animal.ImageUrl} />
+
             {/* Основная информация */}
             <div>
               <h2 className="text-xl font-semibold">Основные данные</h2>
@@ -109,7 +110,9 @@ export const AnimalPage: React.FC = () => {
                 <strong>Тип:</strong> {animal.AnimalType?.TypeName}
               </p>
             </div>
+          </div>
 
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {/* Информация о приюте */}
             <div>
               <h2 className="text-xl font-semibold">Приют</h2>
@@ -132,20 +135,19 @@ export const AnimalPage: React.FC = () => {
                 <p className="mt-2">Информация о приюте недоступна.</p>
               )}
             </div>
-          </div>
-
-          {/* Болезни */}
-          <div className="mt-6">
-            <h2 className="text-xl font-semibold">Болезни</h2>
-            {animal.Diseases && animal.Diseases.length > 0 ? (
-              <ul className="list-disc list-inside mt-2">
-                {animal.Diseases.map((disease) => (
-                  <li key={disease.Diseases.ID}>{disease.Diseases.Name}</li>
-                ))}
-              </ul>
-            ) : (
-              <p className="mt-2">Болезни отсутствуют.</p>
-            )}
+            {/* Болезни */}
+            <div className="mt-6">
+              <h2 className="text-xl font-semibold">Болезни</h2>
+              {animal.Diseases && animal.Diseases.length > 0 ? (
+                <ul className="list-disc list-inside mt-2">
+                  {animal.Diseases.map((disease) => (
+                    <li key={disease.Diseases.ID}>{disease.Diseases.Name}</li>
+                  ))}
+                </ul>
+              ) : (
+                <p className="mt-2">Болезни отсутствуют.</p>
+              )}
+            </div>
           </div>
 
           {/* Формы для заявок на усыновление */}

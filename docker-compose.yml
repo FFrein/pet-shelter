@@ -34,8 +34,14 @@ services:
       - "3000:3000"
     container_name: pet-shelter-server
     environment:
+      JWT_ACCESS_SECRET: "123"
+      JWT_ACCESS_LIFETIME: "7200s"
+      JWT_REFRESH_SECRET: "321"
+      JWT_REFRESH_LIFETIME: "7200s"
       DATABASE_URL: "sqlserver://pet-shelter-mssql:1433;database=PetShalter;user=sa;password=Password_123#;encrypt=true;trustServerCertificate=true"
       CLIENT_URL: "http://localhost:3001"
+      SUPABASE_URL: "https://gmunxderffsdpoclsbjj.supabase.co"
+      SUPABASE_KEY: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdtdW54ZGVyZmZzZHBvY2xzYmpqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzQ2MzE5ODksImV4cCI6MjA1MDIwNzk4OX0.trRHRDMPRbGv3SYgDp9yo7tXMPo2HffuezSHZgj8kqs"
     depends_on:
       - mssql
     networks:

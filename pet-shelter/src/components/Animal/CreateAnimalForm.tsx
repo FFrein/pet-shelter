@@ -7,14 +7,28 @@ import { toast } from "react-toastify";
 export const CreateAnimalForm = observer(() => {
   const { store } = useContext(Context);
 
-  const [animal, setAnimal] = useState({
+  const [animal, setAnimal] = useState<{
+    animalTypeId?: number;
+    petShelterId?: number;
+    name?: string;
+    description?: string;
+    age?: number;
+    gender?: string;
+    image?: File | null;
+  }>({
     animalTypeId: 0,
     petShelterId: parseInt(store.user.id),
     name: "",
     description: "",
     age: 0,
-    gender: "", // Выбранный гендер
+    gender: "",
+    image: null,
   });
+
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0] || null;
+    if (file) setAnimal({ ...animal, image: file });
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -24,7 +38,19 @@ export const CreateAnimalForm = observer(() => {
         return;
       }
 
-      const response = await AnimalsService.create(animal);
+      const formData = new FormData();
+      formData.append("animalTypeId", String(animal.animalTypeId));
+      formData.append("petShelterId", String(animal.petShelterId));
+      if (animal.name) formData.append("name", animal.name);
+      if (animal.description)
+        formData.append("description", animal.description);
+      formData.append("age", String(animal.age));
+      formData.append("gender", animal.gender);
+      if (animal.image) {
+        formData.append("image", animal.image);
+      }
+
+      const response = await AnimalsService.create(formData);
       toast.success("Животное успешно создано!");
       console.log(response.data);
 
@@ -36,6 +62,7 @@ export const CreateAnimalForm = observer(() => {
         description: "",
         age: 0,
         gender: "",
+        image: null,
       });
     } catch (error: any) {
       toast.error(`Ошибка при создании животного: ${error.message || error}`);
@@ -82,6 +109,12 @@ export const CreateAnimalForm = observer(() => {
         placeholder="Description"
         value={animal.description}
         onChange={(e) => setAnimal({ ...animal, description: e.target.value })}
+        className="p-2 border border-gray-300 rounded-md"
+      />
+      <input
+        type="file"
+        accept="image/*"
+        onChange={handleImageChange}
         className="p-2 border border-gray-300 rounded-md"
       />
       <button

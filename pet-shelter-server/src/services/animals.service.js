@@ -1,5 +1,6 @@
 import AnimalModel from "../models/animal.model.js";
 import { AnimalByIdDto } from "../database/dtos/dto.js";
+import { services as TelegramBotServices } from "../bots/tg/services.js";
 export default class AnimalService {
   static async getAll(query) {
     try {
@@ -90,7 +91,11 @@ export default class AnimalService {
 
   static async create(animalData) {
     try {
-      return await AnimalModel.create(animalData);
+      const animal = await AnimalModel.create(animalData);
+      if (animal.ID) {
+        await TelegramBotServices.notifyUsers(animal);
+      }
+      return animal;
     } catch (e) {
       throw new Error("Ошибка при создании животного: " + e.message);
     }

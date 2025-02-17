@@ -1,0 +1,25 @@
+BEGIN TRY
+
+BEGIN TRAN;
+
+-- CreateTable
+CREATE TABLE [dbo].[Notification] (
+    [ID] INT NOT NULL IDENTITY(1,1),
+    [TelegramChatId] INT NOT NULL,
+    [City] NVARCHAR(1000) NOT NULL,
+    [Country] NVARCHAR(1000) NOT NULL,
+    CONSTRAINT [Notification_pkey] PRIMARY KEY CLUSTERED ([ID])
+);
+
+COMMIT TRAN;
+
+END TRY
+BEGIN CATCH
+
+IF @@TRANCOUNT > 0
+BEGIN
+    ROLLBACK TRAN;
+END;
+THROW
+
+END CATCH

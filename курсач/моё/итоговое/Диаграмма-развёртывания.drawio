@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36" version="26.0.3">
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:135.0) Gecko/20100101 Firefox/135.0" version="26.0.14">
   <diagram name="Страница — 1" id="g24mCY87ab78DPvd3pI4">
-    <mxGraphModel dx="1877" dy="565" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="2195" dy="731" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -70,6 +70,20 @@
         </mxCell>
         <mxCell id="5aNWPN1ELe4lWxlSeHUW-20" value="HTTP 1.1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="1" vertex="1" connectable="0">
           <mxGeometry x="413.99999999999994" y="180" as="geometry" />
+        </mxCell>
+        <mxCell id="ZQMTowElQMlYm0qzmAl4-1" value="supabase" style="verticalAlign=top;align=left;spacingTop=8;spacingLeft=2;spacingRight=12;shape=cube;size=10;direction=south;fontStyle=4;html=1;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="-115" y="80" width="90" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="ZQMTowElQMlYm0qzmAl4-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0;entryDx=0;entryDy=75.15;entryPerimeter=0;startArrow=classic;startFill=1;exitX=0;exitY=0;exitDx=70;exitDy=50;exitPerimeter=0;" edge="1" parent="1" source="ZQMTowElQMlYm0qzmAl4-1" target="5aNWPN1ELe4lWxlSeHUW-8">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="-110" y="209.5" as="sourcePoint" />
+            <mxPoint x="10" y="209.5" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ZQMTowElQMlYm0qzmAl4-3" value="HTTP 1.1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="ZQMTowElQMlYm0qzmAl4-2">
+          <mxGeometry x="0.2047" y="1" relative="1" as="geometry">
+            <mxPoint x="-12" y="-14" as="offset" />
+          </mxGeometry>
         </mxCell>
       </root>
     </mxGraphModel>

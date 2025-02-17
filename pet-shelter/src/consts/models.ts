@@ -40,6 +40,7 @@ export interface Animal {
   AnimalType?: AnimalType;
   PetShelter?: PetShelter;
   Diseases?: { Diseases: Disease }[];
+  ImageUrl?: string;
 }
 
 export interface AdoptionRequest {

@@ -8,16 +8,23 @@ export class AnimalsService {
   static async getById(id: number | string) {
     return $api.get(`/animals/${id}`);
   }
-  static async create(animal: {
+  /*
+  animal: {
     animalTypeId?: number;
     petShelterId?: number;
     name?: string;
     description?: string;
     age?: number;
     gender?: string;
-  }) {
-    return $api.post("/animals", animal);
+    image?: File | null;
+  };
+  */
+  static async create(animal: FormData) {
+    return $api.post("/animals", animal, {
+      headers: { "Content-Type": "multipart/form-data" },
+    });
   }
+
   static async update(animal: {
     ID?: number;
     animalTypeId?: number;

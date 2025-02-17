@@ -1,7 +1,6 @@
 import { prisma } from "../database/db.js";
 
 export default class PetShelterModel {
-  // Создать новый приют
   static async create(petShelter) {
     return await prisma.petShelter.create({
       data: {
@@ -17,12 +16,14 @@ export default class PetShelterModel {
     });
   }
 
-  // Получить все приюты
   static async getAll() {
     return await prisma.petShelter.findMany();
   }
 
-  // Получить приют по ID
+  static async getFiltered(filter) {
+    return await prisma.petShelter.findMany({ where: filter });
+  }
+
   static async getById(id) {
     return await prisma.petShelter.findUnique({ where: { ID: id } });
   }
@@ -31,7 +32,6 @@ export default class PetShelterModel {
     return await prisma.petShelter.findUnique({ where: { Email: email } });
   }
 
-  // Обновить информацию о приюте
   static async update(id, data) {
     try {
       return await prisma.petShelter.update({
@@ -52,7 +52,6 @@ export default class PetShelterModel {
     }
   }
 
-  // Удалить приют
   static async delete(id) {
     return await prisma.petShelter.delete({ where: { ID: id } });
   }

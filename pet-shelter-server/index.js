@@ -5,6 +5,8 @@ import cors from "cors";
 import setupSwagger from "./src/swagger.js";
 import { errorMiddleware } from "./src/middlewares/error.middleware.js";
 import dotenv from "dotenv";
+import { bot } from "./src/bots/tg/bot.js";
+
 dotenv.config();
 
 const app = express();
